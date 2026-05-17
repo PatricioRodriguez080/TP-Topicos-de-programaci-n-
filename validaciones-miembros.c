@@ -36,3 +36,74 @@ int validarPlan(const char *plan)
         }
     return VALIDACION_OK;
 }
+
+void calcularCUIL(int xyInicial, long dni, char salida[14])
+{
+    int pesos[10] = {5, 4, 3, 2, 7, 6, 5, 4, 3, 2};
+    int digitos[10];
+    long dniRestante = dni;
+    int i;
+    int suma = 0;
+    int resto;
+    int xyFinal = xyInicial;
+    int z;
+
+    digitos[0] = xyInicial / 10;
+    digitos[1] = xyInicial % 10;
+    for (i = 9; i >= 2; i--){
+        digitos[i] = dniRestante % 10;
+        dniRestante /= 10;
+    }
+
+    for (i = 0; i < 10; i++){
+        suma += digitos[i] * pesos[i];
+    }
+
+    resto = suma % 11;
+
+    if (resto == 0){
+        z = 0;
+    } else if (resto == 1){
+        if (xyInicial == 20){
+            z = 9;
+            xyFinal = 23;
+        } else if (xyInicial == 27){
+            z = 4;
+            xyFinal = 23;
+        } else {
+            z = 11 - resto;
+        }
+    } else {
+        z = 11 - resto;
+    }
+
+    sprintf(salida, "%02d-%08ld-%d", xyFinal, dni, z);
+}
+
+int validarCUIL(const char *cuil, long dni, char sexo)
+{
+    char esperado[14];
+
+    if (sexo == 'M'){
+        calcularCUIL(20, dni, esperado);
+        if (strcmp(cuil, esperado) == 0){
+            return VALIDACION_OK;
+        }
+    } else if (sexo == 'F'){
+        calcularCUIL(27, dni, esperado);
+        if (strcmp(cuil, esperado) == 0){
+            return VALIDACION_OK;
+        }
+    } else if (sexo == 'O'){
+        calcularCUIL(20, dni, esperado);
+        if (strcmp(cuil, esperado) == 0){
+            return VALIDACION_OK;
+        }
+        calcularCUIL(27, dni, esperado);
+        if (strcmp(cuil, esperado) == 0){
+            return VALIDACION_OK;
+        }
+    }
+
+    return ERROR_CUIL;
+}

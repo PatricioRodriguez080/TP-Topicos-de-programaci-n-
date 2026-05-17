@@ -6,6 +6,7 @@
 #define ERROR_SEXO      2
 #define ERROR_ESTADO    3
 #define ERROR_PLAN      4
+#define ERROR_CUIL      5
 
 typedef struct {
     int dia;
@@ -31,5 +32,7 @@ int  validarDNI(long dni);
 int  validarSexo(char sexo);
 int  validarEstado(char estado);
 int  validarPlan(const char *plan);
+void calcularCUIL(int xyInicial, long dni, char salida[14]);
+int  validarCUIL(const char *cuil, long dni, char sexo);
 
 #endif
