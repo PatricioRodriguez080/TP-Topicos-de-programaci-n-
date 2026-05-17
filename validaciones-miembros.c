@@ -129,6 +129,19 @@ int validarFechaAfiliacion(t_fecha fechaAfiliacion,t_fecha fechaNacimiento,t_fec
     return VALIDACION_OK;
 }
 
+int validarFechaUltimaCuota(t_fecha fechaUltimaCuota, t_fecha fechaAfiliacion, t_fecha fechaProceso){
+    if (!esFechaValida(fechaUltimaCuota)){
+        return ERROR_FECHA_ULTIMA_CUOTA;
+    }
+    if (compararFechas(fechaUltimaCuota, fechaAfiliacion) < 0){
+        return ERROR_FECHA_ULTIMA_CUOTA;
+    }
+    if (compararFechas(fechaUltimaCuota, fechaProceso) > 0){
+        return ERROR_FECHA_ULTIMA_CUOTA;
+    }
+    return VALIDACION_OK;
+}
+
 void calcularCategoria(t_fecha fechaNacimiento, t_fecha fechaProceso, char salida[10]){
     int edad = calcularEdad(fechaNacimiento, fechaProceso);
     if (edad < 18){
@@ -173,7 +186,10 @@ int validarMiembro(Miembro miembro, t_fecha fechaProceso){
     res = validarFechaAfiliacion(miembro.fechaAfiliacion, miembro.fechaNacimiento, fechaProceso);
     if (res != VALIDACION_OK) return res;
 
-    ret = validarCategoria(miembro.categoria, miembro.fechaNacimiento, fechaProceso);
+    res = validarCategoria(miembro.categoria, miembro.fechaNacimiento, fechaProceso);
+    if (res != VALIDACION_OK) return res;
+
+    res = validarFechaUltimaCuota(miembro.fechaUltimaCuota, miembro.fechaAfiliacion, fechaProceso);
     if (res != VALIDACION_OK) return res;
 
     res = validarEstado(miembro.estado);
