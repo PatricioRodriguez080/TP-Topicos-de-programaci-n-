@@ -14,6 +14,7 @@
 #define ERROR_CATEGORIA            8
 #define ERROR_EMAIL_TUTOR          9
 #define ERROR_FECHA_ULTIMA_CUOTA   10
+#define ERROR_APELLIDO_NOMBRE      11
 
 typedef struct {
     long    dni;
@@ -35,6 +36,8 @@ int  validarEstado(char estado);
 int  validarPlan(const char *plan);
 void calcularCUIL(int xyInicial, long dni, char salida[14]);
 int  validarCUIL(const char *cuil, long dni, char sexo);
+char *normalizarApellidoYNombre(char *cad);
+int  validarApellidoYNombre(const char *apellidoNombre);
 int  validarFechaNacimiento(t_fecha fechaNacimiento, t_fecha fechaProceso);
 int  validarFechaAfiliacion(t_fecha fechaAfiliacion,t_fecha fechaNacimiento,t_fecha fechaProceso);
 int  validarFechaUltimaCuota(t_fecha fechaUltimaCuota, t_fecha fechaAfiliacion, t_fecha fechaProceso);

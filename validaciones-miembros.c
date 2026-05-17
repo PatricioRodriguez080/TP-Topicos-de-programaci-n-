@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include "validaciones-miembros.h"
 #include "utils-fechas.h"
 
@@ -106,6 +107,54 @@ int validarCUIL(const char *cuil, long dni, char sexo){
     return ERROR_CUIL;
 }
 
+char *normalizarApellidoYNombre(char *cad){
+    char *lect = cad, *esc = cad;
+    int primeraLetraPalabra;
+    int posicionPalabra = 0;
+
+    while (*lect){
+        while (*lect && (isspace(*lect) || *lect == ','))
+            lect++;
+
+        if (*lect){
+            posicionPalabra++;
+
+            if (posicionPalabra == 2){
+                *esc = ',';
+                esc++;
+                *esc = ' ';
+                esc++;
+            } else if (posicionPalabra > 2){
+                *esc = ' ';
+                esc++;
+            }
+
+            primeraLetraPalabra = 1;
+            while (*lect && !isspace(*lect) && *lect != ','){
+                *esc = primeraLetraPalabra ? toupper(*lect) : tolower(*lect);
+                primeraLetraPalabra = 0;
+                esc++;
+                lect++;
+            }
+        }
+    }
+
+    *esc = '\0';
+    return cad;
+}
+
+int validarApellidoYNombre(const char *apellidoNombre){
+    char esperado[60];
+
+    strcpy(esperado, apellidoNombre);
+    normalizarApellidoYNombre(esperado);
+
+    if (strcmp(apellidoNombre, esperado) != 0){
+        return ERROR_APELLIDO_NOMBRE;
+    }
+    return VALIDACION_OK;
+}
+
 int validarFechaNacimiento(t_fecha fechaNacimiento, t_fecha fechaProceso){
     if (!esFechaValida(fechaNacimiento)){
         return ERROR_FECHA_NACIMIENTO;
@@ -175,6 +224,9 @@ int validarMiembro(Miembro miembro, t_fecha fechaProceso){
     if (res != VALIDACION_OK) return res;
 
     res = validarCUIL(miembro.cuil, miembro.dni, miembro.sexo);
+    if (res != VALIDACION_OK) return res;
+
+    res = validarApellidoYNombre(miembro.apellidoNombre);
     if (res != VALIDACION_OK) return res;
 
     res = validarFechaNacimiento(miembro.fechaNacimiento, fechaProceso);
