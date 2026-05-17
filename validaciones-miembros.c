@@ -3,32 +3,28 @@
 #include "validaciones-miembros.h"
 #include "utils-fechas.h"
 
-int validarDNI(long dni)
-{
+int validarDNI(long dni){
     if (dni <= 1000000 || dni >= 100000000){
         return ERROR_DNI;
     }
     return VALIDACION_OK;
 }
 
-int validarSexo(char sexo)
-{
+int validarSexo(char sexo){
     if (sexo != 'F' && sexo != 'M' && sexo != 'O'){
         return ERROR_SEXO;
     }
     return VALIDACION_OK;
 }
 
-int validarEstado(char estado)
-{
+int validarEstado(char estado){
     if (estado != 'A' && estado != 'B'){
         return ERROR_ESTADO;
     }
     return VALIDACION_OK;
 }
 
-int validarPlan(const char *plan)
-{
+int validarPlan(const char *plan){
     if (strcmp(plan, "BASIC")   != 0 &&
         strcmp(plan, "PREMIUM") != 0 &&
         strcmp(plan, "VIP")     != 0 &&
@@ -38,8 +34,7 @@ int validarPlan(const char *plan)
     return VALIDACION_OK;
 }
 
-void calcularCUIL(int xyInicial, long dni, char salida[14])
-{
+void calcularCUIL(int xyInicial, long dni, char salida[14]){
     int pesos[10] = {5, 4, 3, 2, 7, 6, 5, 4, 3, 2};
     int digitos[10];
     long dniRestante = dni;
@@ -84,8 +79,7 @@ void calcularCUIL(int xyInicial, long dni, char salida[14])
     sprintf(salida, "%02d-%08ld-%d", xyFinal, dni, z);
 }
 
-int validarCUIL(const char *cuil, long dni, char sexo)
-{
+int validarCUIL(const char *cuil, long dni, char sexo){
     char esperado[14];
 
     if (sexo == 'M'){
@@ -112,8 +106,7 @@ int validarCUIL(const char *cuil, long dni, char sexo)
     return ERROR_CUIL;
 }
 
-int validarFechaNacimiento(t_fecha fechaNacimiento, t_fecha fechaProceso)
-{
+int validarFechaNacimiento(t_fecha fechaNacimiento, t_fecha fechaProceso){
     int edad;
 
     if (!esFechaValida(fechaNacimiento)){
@@ -128,6 +121,19 @@ int validarFechaNacimiento(t_fecha fechaNacimiento, t_fecha fechaProceso)
 
     if (edad < 10){
         return ERROR_FECHA_NACIMIENTO;
+    }
+    return VALIDACION_OK;
+}
+
+int validarFechaAfiliacion(t_fecha fechaAfiliacion,t_fecha fechaNacimiento,t_fecha fechaProceso){
+    if (!esFechaValida(fechaAfiliacion)){
+        return ERROR_FECHA_AFILIACION;
+    }
+    if (compararFechas(fechaAfiliacion, fechaNacimiento) < 0){
+        return ERROR_FECHA_AFILIACION;
+    }
+    if (compararFechas(fechaAfiliacion, fechaProceso) > 0){
+        return ERROR_FECHA_AFILIACION;
     }
     return VALIDACION_OK;
 }
