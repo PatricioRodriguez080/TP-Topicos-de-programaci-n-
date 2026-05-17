@@ -20,7 +20,7 @@ unsigned cantidad_elementos_maxima;
 }t_indice;
 
 /**************************************************************************
-Descripción: toma memoria para 100 elementos e inicializa la estructura vacía.
+Descripción: toma memoria para 100 elementos e inicializa la estructura vacía.
 Parámetros: indice: TDA índice.
  nmemb: cantidad de elementos del índice.
  tamanyo: el espacio en bytes ocupado por cada elemento.
@@ -43,7 +43,7 @@ void indice_redimensionar(t_indice *indice, size_t nmemb, size_t tamanyo);
 Descripción: inserta en orden según la clave.
 Parámetros: indice: TDA índice.
  registro: el nuevo elemento a insertar en el índice.
- tamanyo: el espacio en bytes ocupado por el elemento a insertar.
+ tamanyo: el espacio en bytes ocupado por el elemento a insertar.
  cmp: función de comparación provista.
 Retorno: OK si la operación fue exitosa y ERROR en caso contrario.
 Observaciones: Si el array está lleno, toma un 30 % más de memoria.
@@ -55,7 +55,7 @@ int (*cmp)(const void *, const void *));
 Descripción: elimina el registro del índice.
 Parámetros: indice: TDA índice.
  registro: el elemento a eliminar.
- tamanyo: el espacio en bytes ocupado por el elemento a insertar.
+ tamanyo: el espacio en bytes ocupado por el elemento a insertar.
  cmp: función de comparación provista.
 Retorno: OK si la operación fue exitosa y ERROR en caso contrario.
 Observaciones: -
@@ -107,7 +107,7 @@ Descripción: Carga el array desde un archivo ordenado.
 Parámetros: path: la ruta al archivo binario.
  indice: TDA índice.
  vreg_ind: vector de elementos dentro del índice.
- tamanyo: el espacio en bytes ocupado por el elemento a insertar.
+ tamanyo: el espacio en bytes ocupado por el elemento a insertar.
  cmp: función de comparación provista.
 Retorno: OK si la operación fue exitosa y ERROR en caso contrario.
 Observaciones: -
