@@ -2,13 +2,17 @@
 #include <stdlib.h>
 #include "utils-fechas.h"
 #include "carga-miembros.h"
+#include "indice.h"
+#include "validaciones-miembros.h"
 
 int main(){
-    t_fecha fechaProceso;
+    t_fecha fechaProceso = {16, 5, 2026};
+    t_indice indiceExito;
 
     // Aca pedimos fecha proceso y la parseamos a t_fecha //
 
-    cargaMiembros(fechaProceso);
+    indice_crear(&indiceExito, CANTIDAD_ELEMENTOS, sizeof(Miembro));
+    cargaMiembros(&indiceExito, fechaProceso);
 
     return 0;
 }

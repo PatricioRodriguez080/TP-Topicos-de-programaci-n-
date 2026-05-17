@@ -1,16 +1,36 @@
 #include <stdio.h>
 #include "carga-miembros.h"
 #include "validaciones-miembros.h"
+#include "indice.h"
 
-void cargaMiembros(t_fecha fechaProceso){
-    // Abro el arch, mientras tenga miembros por leer los parseo a Miembro y llamo a validarMiembro(miembro, fechaProceso) //
+#define ARCHIVO_MIEMBROS  "Archivos/miembros.csv"
 
-    // En caso de que la respuesta de validarMiembro sea OK guardo el mimebro en memoria, en caso contrario deberia de manejar los errores //
+static int cmpMiembrosPorDni(const void *a, const void *b){
+    const Miembro *ma = a;
+    const Miembro *mb = b;
+    if (ma->dni < mb->dni) return -1;
+    if (ma->dni > mb->dni) return 1;
+    return 0;
+}
 
-    // Tenemos que tener en cuenta que tenemos early return, entonces si alguna validacion falla ya vengo a este flujo y tnego
-    // el codigo de error, por ende se que fallo (DNI o CUIT u otro) por lo tanto ya tengo info para hacer la auditoria
-    // ya que ademas tengo el DNI de el miembro porque lo estoy parseando en este mismo flujo arriba 
+void cargaMiembros(t_indice *indiceExito, t_fecha fechaProceso){
+    t_indice indiceRaw;
+    Miembro buffer;
+    Miembro *miembros;
+    unsigned i;
+    int resultado;
 
-    // Cierro el arch //
-    // Logica de errores todavia no planeada al 100% //
+    indice_crear(&indiceRaw, CANTIDAD_ELEMENTOS, sizeof(Miembro));
+    indice_cargar(ARCHIVO_MIEMBROS, &indiceRaw, &buffer, sizeof(Miembro), cmpMiembrosPorDni);
+
+    miembros = (Miembro *) indiceRaw.vindice;
+    for (i = 0; i < indiceRaw.cantidad_elementos_actual; i++){
+        resultado = validarMiembro(miembros[i], fechaProceso);
+        if (resultado == VALIDACION_OK){
+            indice_insertar(indiceExito, &miembros[i], sizeof(Miembro), cmpMiembrosPorDni);
+        }
+        // cuando agreguemos el indice de auditoria, insertar aca el miembro con su codigo de error //
+    }
+
+    indice_vaciar(&indiceRaw);
 }
