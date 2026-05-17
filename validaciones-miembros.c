@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "validaciones-miembros.h"
+#include "utils-fechas.h"
 
 int validarDNI(long dni)
 {
@@ -109,4 +110,24 @@ int validarCUIL(const char *cuil, long dni, char sexo)
     }
 
     return ERROR_CUIL;
+}
+
+int validarFechaNacimiento(t_fecha fechaNacimiento, t_fecha fechaProceso)
+{
+    int edad;
+
+    if (!esFechaValida(fechaNacimiento)){
+        return ERROR_FECHA_NACIMIENTO;
+    }
+
+    edad = fechaProceso.anio - fechaNacimiento.anio;
+    if (fechaProceso.mes < fechaNacimiento.mes ||
+        (fechaProceso.mes == fechaNacimiento.mes && fechaProceso.dia < fechaNacimiento.dia)){
+        edad--;
+    }
+
+    if (edad < 10){
+        return ERROR_FECHA_NACIMIENTO;
+    }
+    return VALIDACION_OK;
 }

@@ -1,18 +1,15 @@
 #ifndef VALIDACIONES_MIEMBROS_H
 #define VALIDACIONES_MIEMBROS_H
 
-#define VALIDACION_OK   0
-#define ERROR_DNI       1
-#define ERROR_SEXO      2
-#define ERROR_ESTADO    3
-#define ERROR_PLAN      4
-#define ERROR_CUIL      5
+#include "utils-fechas.h"
 
-typedef struct {
-    int dia;
-    int mes;
-    int anio;
-} t_fecha;
+#define VALIDACION_OK           0
+#define ERROR_DNI               1
+#define ERROR_SEXO              2
+#define ERROR_ESTADO            3
+#define ERROR_PLAN              4
+#define ERROR_CUIL              5
+#define ERROR_FECHA_NACIMIENTO  6
 
 typedef struct {
     long    dni;
@@ -34,5 +31,6 @@ int  validarEstado(char estado);
 int  validarPlan(const char *plan);
 void calcularCUIL(int xyInicial, long dni, char salida[14]);
 int  validarCUIL(const char *cuil, long dni, char sexo);
+int  validarFechaNacimiento(t_fecha fechaNacimiento, t_fecha fechaProceso);
 
 #endif
