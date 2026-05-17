@@ -209,9 +209,38 @@ int validarCategoria(const char *categoria, t_fecha fechaNacimiento, t_fecha fec
     return VALIDACION_OK;
 }
 
+int esEmailValido(const char *email){
+    int i;
+    int posArroba = -1;
+    int tienePuntoEnDominio = 0;
+
+    for (i = 0; email[i] != '\0'; i++){
+        char c = email[i];
+
+        if (c == '@'){
+            if (posArroba != -1) return 0;
+            posArroba = i;
+        } else if (c == '.'){
+            if (posArroba != -1){
+                tienePuntoEnDominio = 1;
+            }
+        } else if (!isalnum(c)){
+            return 0;
+        }
+    }
+
+    if (posArroba <= 0) return 0;
+    if (email[posArroba + 1] == '\0') return 0;
+    if (!tienePuntoEnDominio) return 0;
+
+    return 1;
+}
+
 int validarEmailTutor(const char *emailTutor, const char *categoria){
-    // aca tengo que agregar la validacion de emails que esta explicada en el TP //
     if (strcmp(categoria, "MENOR") == 0 && emailTutor[0] == '\0'){
+        return ERROR_EMAIL_TUTOR;
+    }
+    if (emailTutor[0] != '\0' && !esEmailValido(emailTutor)){
         return ERROR_EMAIL_TUTOR;
     }
     return VALIDACION_OK;
