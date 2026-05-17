@@ -154,3 +154,36 @@ int validarEmailTutor(const char *emailTutor, const char *categoria){
     }
     return VALIDACION_OK;
 }
+
+int validarMiembro(Miembro miembro, t_fecha fechaProceso){
+    int res;
+
+    res = validarDNI(miembro.dni);
+    if (res != VALIDACION_OK) return res;
+
+    res = validarCUIL(miembro.cuil, miembro.dni, miembro.sexo);
+    if (res != VALIDACION_OK) return res;
+
+    res = validarFechaNacimiento(miembro.fechaNacimiento, fechaProceso);
+    if (res != VALIDACION_OK) return res;
+
+    res = validarSexo(miembro.sexo);
+    if (res != VALIDACION_OK) return res;
+
+    res = validarFechaAfiliacion(miembro.fechaAfiliacion, miembro.fechaNacimiento, fechaProceso);
+    if (res != VALIDACION_OK) return res;
+
+    ret = validarCategoria(miembro.categoria, miembro.fechaNacimiento, fechaProceso);
+    if (res != VALIDACION_OK) return res;
+
+    res = validarEstado(miembro.estado);
+    if (res != VALIDACION_OK) return res;
+
+    res = validarPlan(miembro.plan);
+    if (res != VALIDACION_OK) return res;
+
+    res = validarEmailTutor(miembro.emailTutor, miembro.categoria);
+    if (res != VALIDACION_OK) return res;
+
+    return VALIDACION_OK;
+}

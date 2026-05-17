@@ -39,5 +39,6 @@ int  validarFechaAfiliacion(t_fecha fechaAfiliacion,t_fecha fechaNacimiento,t_fe
 void calcularCategoria(t_fecha fechaNacimiento, t_fecha fechaProceso, char salida[10]);
 int  validarCategoria(const char *categoria, t_fecha fechaNacimiento, t_fecha fechaProceso);
 int  validarEmailTutor(const char *emailTutor, const char *categoria);
+int  validarMiembro(Miembro m, t_fecha fechaProceso);
 
 #endif
