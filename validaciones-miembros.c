@@ -77,6 +77,9 @@ void calcularCUIL(int xyInicial, long dni, char salida[14])
         z = 11 - resto;
     }
 
+    // sprintf(destino, "formato", valores) //
+    // Armo el string y lo guardo en salida //
+    // Borrar este comentario despues, por el momento es de ayuda :) //
     sprintf(salida, "%02d-%08ld-%d", xyFinal, dni, z);
 }
 
