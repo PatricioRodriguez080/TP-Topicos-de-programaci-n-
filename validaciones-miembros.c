@@ -107,19 +107,10 @@ int validarCUIL(const char *cuil, long dni, char sexo){
 }
 
 int validarFechaNacimiento(t_fecha fechaNacimiento, t_fecha fechaProceso){
-    int edad;
-
     if (!esFechaValida(fechaNacimiento)){
         return ERROR_FECHA_NACIMIENTO;
     }
-
-    edad = fechaProceso.anio - fechaNacimiento.anio;
-    if (fechaProceso.mes < fechaNacimiento.mes ||
-        (fechaProceso.mes == fechaNacimiento.mes && fechaProceso.dia < fechaNacimiento.dia)){
-        edad--;
-    }
-
-    if (edad < 10){
+    if (calcularEdad(fechaNacimiento, fechaProceso) < 10){
         return ERROR_FECHA_NACIMIENTO;
     }
     return VALIDACION_OK;
@@ -134,6 +125,32 @@ int validarFechaAfiliacion(t_fecha fechaAfiliacion,t_fecha fechaNacimiento,t_fec
     }
     if (compararFechas(fechaAfiliacion, fechaProceso) > 0){
         return ERROR_FECHA_AFILIACION;
+    }
+    return VALIDACION_OK;
+}
+
+void calcularCategoria(t_fecha fechaNacimiento, t_fecha fechaProceso, char salida[10]){
+    int edad = calcularEdad(fechaNacimiento, fechaProceso);
+    if (edad < 18){
+        strcpy(salida, "MENOR");
+    } else {
+        strcpy(salida, "ADULTO");
+    }
+}
+
+int validarCategoria(const char *categoria, t_fecha fechaNacimiento, t_fecha fechaProceso){
+    char esperada[10];
+    calcularCategoria(fechaNacimiento, fechaProceso, esperada);
+    if (strcmp(categoria, esperada) != 0){
+        return ERROR_CATEGORIA;
+    }
+    return VALIDACION_OK;
+}
+
+int validarEmailTutor(const char *emailTutor, const char *categoria){
+    // aca tengo que agregar la validacion de emails que esta explicada en el TP //
+    if (strcmp(categoria, "MENOR") == 0 && emailTutor[0] == '\0'){
+        return ERROR_EMAIL_TUTOR;
     }
     return VALIDACION_OK;
 }

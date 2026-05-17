@@ -51,3 +51,12 @@ int compararFechas(t_fecha fechaA, t_fecha fechaB){
     if (fechaA.dia  > fechaB.dia)  return 1;
     return 0;
 }
+
+int calcularEdad(t_fecha fechaNacimiento, t_fecha fechaProceso){
+    int edad = fechaProceso.anio - fechaNacimiento.anio;
+    if (fechaProceso.mes < fechaNacimiento.mes ||
+        (fechaProceso.mes == fechaNacimiento.mes && fechaProceso.dia < fechaNacimiento.dia)){
+        edad--;
+    }
+    return edad;
+}

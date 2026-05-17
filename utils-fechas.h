@@ -10,5 +10,6 @@ typedef struct {
 int esBisiesto(int anio);
 int esFechaValida(t_fecha fecha);
 int compararFechas(t_fecha fechaA, t_fecha fechaB);
+int calcularEdad(t_fecha fechaNacimiento, t_fecha fechaProceso);
 
 #endif
