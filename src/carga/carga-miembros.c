@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "carga-miembros.h"
-#include "validaciones-miembros.h"
+#include "../validaciones/validaciones-miembros.h"
 
 void cargaMiembros(t_fecha fechaProceso){
     // Abro el arch, mientras tenga miembros por leer los parseo a Miembro y llamo a validarMiembro(miembro, fechaProceso) //

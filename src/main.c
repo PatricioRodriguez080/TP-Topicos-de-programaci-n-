@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "utils-fechas.h"
-#include "carga-miembros.h"
+#include "utils/utils-fechas.h"
+#include "carga/carga-miembros.h"
 
 int main(){
     t_fecha fechaProceso;

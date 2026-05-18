@@ -31,9 +31,30 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="main.c">
+		<Unit filename="src/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="src/utils/utils-fechas.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/utils/utils-fechas.h" />
+		<Unit filename="src/utils/utils-validaciones.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/utils/utils-validaciones.h" />
+		<Unit filename="src/validaciones/validaciones-miembros.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/validaciones/validaciones-miembros.h" />
+		<Unit filename="src/validaciones/validaciones-titulos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/validaciones/validaciones-titulos.h" />
+		<Unit filename="src/carga/carga-miembros.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/carga/carga-miembros.h" />
+		<Unit filename="src/indice/indice.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

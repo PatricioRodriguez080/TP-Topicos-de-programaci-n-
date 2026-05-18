@@ -1,7 +1,7 @@
 #ifndef VALIDACIONES_TITULOS_H
 #define VALIDACIONES_TITULOS_H
 
-#include "utils-validaciones.h"
+#include "../utils/utils-validaciones.h"
 
 #define ERROR_ID_PELICULA  12
 #define ERROR_TITULO       13
