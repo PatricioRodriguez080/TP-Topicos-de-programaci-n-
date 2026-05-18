@@ -30,21 +30,31 @@ typedef struct {
     char    emailTutor[30];
 } Miembro;
 
-int  validarDNI(long dni);
-int  validarSexo(char sexo);
-int  validarEstado(char estado);
-int  validarPlan(const char *plan);
+typedef struct {
+    Miembro *miembro;
+    t_fecha fechaProceso;
+} DatosValidacionMiembro;
+
+typedef int (*ValidadorFn)(void *dato);
+
+int  validarDNI(void *dato);
+int  validarSexo(void *dato);
+int  validarEstado(void *dato);
+int  validarPlan(void *dato);
+int  validarCUIL(void *dato);
+int  validarApellidoYNombre(void *dato);
+int  validarFechaNacimiento(void *dato);
+int  validarFechaAfiliacion(void *dato);
+int  validarFechaUltimaCuota(void *dato);
+int  validarCategoria(void *dato);
+int  validarEmailTutor(void *dato);
+
 void calcularCUIL(int xyInicial, long dni, char salida[14]);
-int  validarCUIL(const char *cuil, long dni, char sexo);
 char *normalizarApellidoYNombre(char *cad);
-int  validarApellidoYNombre(const char *apellidoNombre);
-int  validarFechaNacimiento(t_fecha fechaNacimiento, t_fecha fechaProceso);
-int  validarFechaAfiliacion(t_fecha fechaAfiliacion,t_fecha fechaNacimiento,t_fecha fechaProceso);
-int  validarFechaUltimaCuota(t_fecha fechaUltimaCuota, t_fecha fechaAfiliacion, t_fecha fechaProceso);
 void calcularCategoria(t_fecha fechaNacimiento, t_fecha fechaProceso, char salida[10]);
-int  validarCategoria(const char *categoria, t_fecha fechaNacimiento, t_fecha fechaProceso);
 int  esEmailValido(const char *email);
-int  validarEmailTutor(const char *emailTutor, const char *categoria);
-int  validarMiembro(Miembro m, t_fecha fechaProceso);
+
+int  ejecutarValidacion(void *dato, ValidadorFn funcion);
+int  validarMiembro(Miembro miembro, t_fecha fechaProceso);
 
 #endif
