@@ -4,34 +4,46 @@
 #include "validaciones-miembros.h"
 #include "utils-fechas.h"
 
-int validarDNI(long dni){
-    if (dni <= 1000000 || dni >= 100000000){
+int validarDNI(void *dato){
+    DatosValidacionMiembro *d = (DatosValidacionMiembro *)dato;
+
+    if (d->miembro->dni <= 1000000 ||
+        d->miembro->dni >= 100000000){
         return ERROR_DNI;
     }
     return VALIDACION_OK;
 }
 
-int validarSexo(char sexo){
-    if (sexo != 'F' && sexo != 'M' && sexo != 'O'){
+int validarSexo(void *dato){
+    DatosValidacionMiembro *d = (DatosValidacionMiembro *)dato;
+
+    if (d->miembro->sexo != 'F' &&
+        d->miembro->sexo != 'M' &&
+        d->miembro->sexo != 'O'){
         return ERROR_SEXO;
     }
     return VALIDACION_OK;
 }
 
-int validarEstado(char estado){
-    if (estado != 'A' && estado != 'B'){
+int validarEstado(void *dato){
+    DatosValidacionMiembro *d = (DatosValidacionMiembro *)dato;
+
+    if (d->miembro->estado != 'A' &&
+        d->miembro->estado != 'B'){
         return ERROR_ESTADO;
     }
     return VALIDACION_OK;
 }
 
-int validarPlan(const char *plan){
-    if (strcmp(plan, "BASIC")   != 0 &&
-        strcmp(plan, "PREMIUM") != 0 &&
-        strcmp(plan, "VIP")     != 0 &&
-        strcmp(plan, "FAMILY")  != 0){
-            return ERROR_PLAN;
-        }
+int validarPlan(void *dato){
+    DatosValidacionMiembro *d = (DatosValidacionMiembro *)dato;
+
+    if (strcmp(d->miembro->plan, "BASIC")   != 0 &&
+        strcmp(d->miembro->plan, "PREMIUM") != 0 &&
+        strcmp(d->miembro->plan, "VIP")     != 0 &&
+        strcmp(d->miembro->plan, "FAMILY")  != 0){
+        return ERROR_PLAN;
+    }
     return VALIDACION_OK;
 }
 
@@ -80,26 +92,27 @@ void calcularCUIL(int xyInicial, long dni, char salida[14]){
     sprintf(salida, "%02d-%08ld-%d", xyFinal, dni, z);
 }
 
-int validarCUIL(const char *cuil, long dni, char sexo){
+int validarCUIL(void *dato){
+    DatosValidacionMiembro *d = (DatosValidacionMiembro *)dato;
     char esperado[14];
 
-    if (sexo == 'M'){
-        calcularCUIL(20, dni, esperado);
-        if (strcmp(cuil, esperado) == 0){
+    if (d->miembro->sexo == 'M'){
+        calcularCUIL(20, d->miembro->dni, esperado);
+        if (strcmp(d->miembro->cuil, esperado) == 0){
             return VALIDACION_OK;
         }
-    } else if (sexo == 'F'){
-        calcularCUIL(27, dni, esperado);
-        if (strcmp(cuil, esperado) == 0){
+    } else if (d->miembro->sexo == 'F'){
+        calcularCUIL(27, d->miembro->dni, esperado);
+        if (strcmp(d->miembro->cuil, esperado) == 0){
             return VALIDACION_OK;
         }
-    } else if (sexo == 'O'){
-        calcularCUIL(20, dni, esperado);
-        if (strcmp(cuil, esperado) == 0){
+    } else if (d->miembro->sexo == 'O'){
+        calcularCUIL(20, d->miembro->dni, esperado);
+        if (strcmp(d->miembro->cuil, esperado) == 0){
             return VALIDACION_OK;
         }
-        calcularCUIL(27, dni, esperado);
-        if (strcmp(cuil, esperado) == 0){
+        calcularCUIL(27, d->miembro->dni, esperado);
+        if (strcmp(d->miembro->cuil, esperado) == 0){
             return VALIDACION_OK;
         }
     }
@@ -143,49 +156,56 @@ char *normalizarApellidoYNombre(char *cad){
     return cad;
 }
 
-int validarApellidoYNombre(const char *apellidoNombre){
+int validarApellidoYNombre(void *dato){
+    DatosValidacionMiembro *d = (DatosValidacionMiembro *)dato;
     char esperado[60];
 
-    strcpy(esperado, apellidoNombre);
+    strcpy(esperado, d->miembro->apellidoNombre);
     normalizarApellidoYNombre(esperado);
 
-    if (strcmp(apellidoNombre, esperado) != 0){
+    if (strcmp(d->miembro->apellidoNombre, esperado) != 0){
         return ERROR_APELLIDO_NOMBRE;
     }
     return VALIDACION_OK;
 }
 
-int validarFechaNacimiento(t_fecha fechaNacimiento, t_fecha fechaProceso){
-    if (!esFechaValida(fechaNacimiento)){
+int validarFechaNacimiento(void *dato){
+    DatosValidacionMiembro *d = (DatosValidacionMiembro *)dato;
+
+    if (!esFechaValida(d->miembro->fechaNacimiento)){
         return ERROR_FECHA_NACIMIENTO;
     }
-    if (calcularEdad(fechaNacimiento, fechaProceso) < 10){
+    if (calcularEdad(d->miembro->fechaNacimiento, d->fechaProceso) < 10){
         return ERROR_FECHA_NACIMIENTO;
     }
     return VALIDACION_OK;
 }
 
-int validarFechaAfiliacion(t_fecha fechaAfiliacion,t_fecha fechaNacimiento,t_fecha fechaProceso){
-    if (!esFechaValida(fechaAfiliacion)){
+int validarFechaAfiliacion(void *dato){
+    DatosValidacionMiembro *d = (DatosValidacionMiembro *)dato;
+
+    if (!esFechaValida(d->miembro->fechaAfiliacion)){
         return ERROR_FECHA_AFILIACION;
     }
-    if (compararFechas(fechaAfiliacion, fechaNacimiento) < 0){
+    if (compararFechas(d->miembro->fechaAfiliacion, d->miembro->fechaNacimiento) < 0){
         return ERROR_FECHA_AFILIACION;
     }
-    if (compararFechas(fechaAfiliacion, fechaProceso) > 0){
+    if (compararFechas(d->miembro->fechaAfiliacion, d->fechaProceso) > 0){
         return ERROR_FECHA_AFILIACION;
     }
     return VALIDACION_OK;
 }
 
-int validarFechaUltimaCuota(t_fecha fechaUltimaCuota, t_fecha fechaAfiliacion, t_fecha fechaProceso){
-    if (!esFechaValida(fechaUltimaCuota)){
+int validarFechaUltimaCuota(void *dato){
+    DatosValidacionMiembro *d = (DatosValidacionMiembro *)dato;
+
+    if (!esFechaValida(d->miembro->fechaUltimaCuota)){
         return ERROR_FECHA_ULTIMA_CUOTA;
     }
-    if (compararFechas(fechaUltimaCuota, fechaAfiliacion) < 0){
+    if (compararFechas(d->miembro->fechaUltimaCuota, d->miembro->fechaAfiliacion) < 0){
         return ERROR_FECHA_ULTIMA_CUOTA;
     }
-    if (compararFechas(fechaUltimaCuota, fechaProceso) > 0){
+    if (compararFechas(d->miembro->fechaUltimaCuota, d->fechaProceso) > 0){
         return ERROR_FECHA_ULTIMA_CUOTA;
     }
     return VALIDACION_OK;
@@ -200,10 +220,12 @@ void calcularCategoria(t_fecha fechaNacimiento, t_fecha fechaProceso, char salid
     }
 }
 
-int validarCategoria(const char *categoria, t_fecha fechaNacimiento, t_fecha fechaProceso){
+int validarCategoria(void *dato){
+    DatosValidacionMiembro *d = (DatosValidacionMiembro *)dato;
     char esperada[10];
-    calcularCategoria(fechaNacimiento, fechaProceso, esperada);
-    if (strcmp(categoria, esperada) != 0){
+
+    calcularCategoria(d->miembro->fechaNacimiento, d->fechaProceso, esperada);
+    if (strcmp(d->miembro->categoria, esperada) != 0){
         return ERROR_CATEGORIA;
     }
     return VALIDACION_OK;
@@ -236,51 +258,49 @@ int esEmailValido(const char *email){
     return 1;
 }
 
-int validarEmailTutor(const char *emailTutor, const char *categoria){
-    if (strcmp(categoria, "MENOR") == 0 && emailTutor[0] == '\0'){
+int validarEmailTutor(void *dato){
+    DatosValidacionMiembro *d = (DatosValidacionMiembro *)dato;
+
+    if (strcmp(d->miembro->categoria, "MENOR") == 0 && d->miembro->emailTutor[0] == '\0'){
         return ERROR_EMAIL_TUTOR;
     }
-    if (emailTutor[0] != '\0' && !esEmailValido(emailTutor)){
+    if (d->miembro->emailTutor[0] != '\0' && !esEmailValido(d->miembro->emailTutor)){
         return ERROR_EMAIL_TUTOR;
     }
     return VALIDACION_OK;
 }
 
+int ejecutarValidacion(void *dato, ValidadorFn funcion){
+    return funcion(dato);
+}
+
 int validarMiembro(Miembro miembro, t_fecha fechaProceso){
-    int res;
+    DatosValidacionMiembro datos;
 
-    res = validarDNI(miembro.dni);
-    if (res != VALIDACION_OK) return res;
+    datos.miembro = &miembro;
+    datos.fechaProceso = fechaProceso;
 
-    res = validarCUIL(miembro.cuil, miembro.dni, miembro.sexo);
-    if (res != VALIDACION_OK) return res;
+    ValidadorFn validaciones[] = {
+        validarDNI,
+        validarCUIL,
+        validarApellidoYNombre,
+        validarFechaNacimiento,
+        validarSexo,
+        validarFechaAfiliacion,
+        validarCategoria,
+        validarFechaUltimaCuota,
+        validarEstado,
+        validarPlan,
+        validarEmailTutor
+    };
 
-    res = validarApellidoYNombre(miembro.apellidoNombre);
-    if (res != VALIDACION_OK) return res;
+    int cantidad = sizeof(validaciones) / sizeof(validaciones[0]);
+    int i, res;
 
-    res = validarFechaNacimiento(miembro.fechaNacimiento, fechaProceso);
-    if (res != VALIDACION_OK) return res;
-
-    res = validarSexo(miembro.sexo);
-    if (res != VALIDACION_OK) return res;
-
-    res = validarFechaAfiliacion(miembro.fechaAfiliacion, miembro.fechaNacimiento, fechaProceso);
-    if (res != VALIDACION_OK) return res;
-
-    res = validarCategoria(miembro.categoria, miembro.fechaNacimiento, fechaProceso);
-    if (res != VALIDACION_OK) return res;
-
-    res = validarFechaUltimaCuota(miembro.fechaUltimaCuota, miembro.fechaAfiliacion, fechaProceso);
-    if (res != VALIDACION_OK) return res;
-
-    res = validarEstado(miembro.estado);
-    if (res != VALIDACION_OK) return res;
-
-    res = validarPlan(miembro.plan);
-    if (res != VALIDACION_OK) return res;
-
-    res = validarEmailTutor(miembro.emailTutor, miembro.categoria);
-    if (res != VALIDACION_OK) return res;
+    for (i = 0; i < cantidad; i++){
+        res = ejecutarValidacion(&datos, validaciones[i]);
+        if (res != VALIDACION_OK) return res;
+    }
 
     return VALIDACION_OK;
 }
