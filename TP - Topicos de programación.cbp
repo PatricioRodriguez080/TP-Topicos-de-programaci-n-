@@ -54,6 +54,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/carga/carga-miembros.h" />
+		<Unit filename="src/carga/preproc-miembros.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/carga/preproc-miembros.h" />
 		<Unit filename="src/indice/indice.c">
 			<Option compilerVar="CC" />
 		</Unit>

@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "utils-fechas.h"
 
 int esBisiesto(int anio){
@@ -59,4 +60,8 @@ int calcularEdad(t_fecha fechaNacimiento, t_fecha fechaProceso){
         edad--;
     }
     return edad;
+}
+
+int parsearFecha(const char *str, t_fecha *fecha){
+    return sscanf(str, "%d/%d/%d", &fecha->dia, &fecha->mes, &fecha->anio) == 3;
 }

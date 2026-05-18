@@ -11,7 +11,7 @@ int main(){
 
     // Aca pedimos fecha proceso y la parseamos a t_fecha //
 
-    indice_crear(&indiceExito, CANTIDAD_ELEMENTOS, sizeof(Miembro));
+    indice_crear(&indiceExito, CANTIDAD_ELEMENTOS, sizeof(t_reg_indice));
     cargaMiembros(&indiceExito, fechaProceso);
 
     return 0;
