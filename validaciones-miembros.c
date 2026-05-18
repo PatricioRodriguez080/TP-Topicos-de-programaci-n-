@@ -270,10 +270,6 @@ int validarEmailTutor(void *dato){
     return VALIDACION_OK;
 }
 
-int ejecutarValidacion(void *dato, ValidadorFn funcion){
-    return funcion(dato);
-}
-
 int validarMiembro(Miembro miembro, t_fecha fechaProceso){
     DatosValidacionMiembro datos;
 
