@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "carga-miembros.h"
-#include "validaciones-miembros.h"
-#include "indice.h"
+#include "../validaciones/validaciones-miembros.h"
 
 #define ARCHIVO_MIEMBROS  "Archivos/miembros.csv"
 

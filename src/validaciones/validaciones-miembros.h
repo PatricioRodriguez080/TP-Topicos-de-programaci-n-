@@ -1,9 +1,9 @@
 #ifndef VALIDACIONES_MIEMBROS_H
 #define VALIDACIONES_MIEMBROS_H
 
-#include "utils-fechas.h"
+#include "../utils/utils-fechas.h"
+#include "../utils/utils-validaciones.h"
 
-#define VALIDACION_OK           0
 #define ERROR_DNI               1
 #define ERROR_SEXO              2
 #define ERROR_ESTADO            3
@@ -35,8 +35,6 @@ typedef struct {
     t_fecha fechaProceso;
 } DatosValidacionMiembro;
 
-typedef int (*ValidadorFn)(void *dato);
-
 int  validarDNI(void *dato);
 int  validarSexo(void *dato);
 int  validarEstado(void *dato);
@@ -54,7 +52,6 @@ char *normalizarApellidoYNombre(char *cad);
 void calcularCategoria(t_fecha fechaNacimiento, t_fecha fechaProceso, char salida[10]);
 int  esEmailValido(const char *email);
 
-int  ejecutarValidacion(void *dato, ValidadorFn funcion);
 int  validarMiembro(Miembro miembro, t_fecha fechaProceso);
 
 #endif

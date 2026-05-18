@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "utils-fechas.h"
-#include "carga-miembros.h"
-#include "indice.h"
-#include "validaciones-miembros.h"
+#include "utils/utils-fechas.h"
+#include "carga/carga-miembros.h"
+#include "indice/indice.h"
+#include "validaciones/validaciones-miembros.h"
 
 int main(){
     t_fecha fechaProceso = {16, 5, 2026};

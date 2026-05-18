@@ -2,7 +2,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "validaciones-miembros.h"
-#include "utils-fechas.h"
+#include "../utils/utils-fechas.h"
 
 int validarDNI(void *dato){
     DatosValidacionMiembro *d = (DatosValidacionMiembro *)dato;
@@ -268,10 +268,6 @@ int validarEmailTutor(void *dato){
         return ERROR_EMAIL_TUTOR;
     }
     return VALIDACION_OK;
-}
-
-int ejecutarValidacion(void *dato, ValidadorFn funcion){
-    return funcion(dato);
 }
 
 int validarMiembro(Miembro miembro, t_fecha fechaProceso){
