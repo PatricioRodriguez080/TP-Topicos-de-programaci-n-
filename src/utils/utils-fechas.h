@@ -11,5 +11,6 @@ int esBisiesto(int anio);
 int esFechaValida(t_fecha fecha);
 int compararFechas(t_fecha fechaA, t_fecha fechaB);
 int calcularEdad(t_fecha fechaNacimiento, t_fecha fechaProceso);
+int parsearFecha(const char *str, t_fecha *fecha);
 
 #endif

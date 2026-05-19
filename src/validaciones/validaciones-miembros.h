@@ -1,8 +1,8 @@
 #ifndef VALIDACIONES_MIEMBROS_H
 #define VALIDACIONES_MIEMBROS_H
 
-#include "utils-fechas.h"
-#include "utils-validaciones.h"
+#include "../utils/utils-fechas.h"
+#include "../utils/utils-validaciones.h"
 
 #define ERROR_DNI               1
 #define ERROR_SEXO              2

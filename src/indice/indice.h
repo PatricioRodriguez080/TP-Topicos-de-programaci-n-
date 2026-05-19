@@ -14,6 +14,11 @@ long dni;
 }t_reg_indice;
 
 typedef struct{
+unsigned nro_reg;
+int idPelicula;
+}t_reg_indice_titulo;
+
+typedef struct{
 void *vindice;
 unsigned cantidad_elementos_actual;
 unsigned cantidad_elementos_maxima;
@@ -27,7 +32,7 @@ Parámetros: indice: TDA índice.
 Retorno: n/a.
 Observaciones:
 **************************************************************************/
-void indice_crear(t_indice *indice, size_t nmemb, size_t tamanyo)
+void indice_crear(t_indice *indice, size_t nmemb, size_t tamanyo);
 
 /**************************************************************************
 Descripción: redimensiona el tamaño del índice.
@@ -100,7 +105,7 @@ Parámetros: indice: TDA indice.
 Retorno: No posee.
 Observaciones: -
 **************************************************************************/
-void indice_vaciar(t_indice* indice)
+void indice_vaciar(t_indice* indice);
 
 /**************************************************************************
 Descripción: Carga el array desde un archivo ordenado.
