@@ -2,7 +2,8 @@
 #define CARGA_TITULOS_H
 
 #include "../indice/indice.h"
+#include "../auditoria/matriz-audit-titulos.h"
 
-void cargaTitulos(t_indice *indiceExito);
+void cargaTitulos(t_indice *indiceExito,t_matriz_audit_titulos *audit);
 
 #endif
