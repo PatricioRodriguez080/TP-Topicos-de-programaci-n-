@@ -58,6 +58,14 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/carga/preproc-miembros.h" />
+		<Unit filename="src/carga/carga-titulos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/carga/carga-titulos.h" />
+		<Unit filename="src/carga/preproc-titulos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/carga/preproc-titulos.h" />
 		<Unit filename="src/indice/indice.c">
 			<Option compilerVar="CC" />
 		</Unit>

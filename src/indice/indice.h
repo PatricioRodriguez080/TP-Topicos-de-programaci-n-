@@ -14,6 +14,11 @@ long dni;
 }t_reg_indice;
 
 typedef struct{
+unsigned nro_reg;
+int idPelicula;
+}t_reg_indice_titulo;
+
+typedef struct{
 void *vindice;
 unsigned cantidad_elementos_actual;
 unsigned cantidad_elementos_maxima;
