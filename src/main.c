@@ -9,13 +9,11 @@
 #include "auditoria/matriz-audit-titulos.h"
 
 int main(){
-    t_fecha fechaProceso = {16, 5, 2026};
+    t_fecha fechaProceso = pedirFechaProceso();
     t_indice indiceExitoMiembros;
     t_indice indiceExitoTitulos;
     t_matriz_audit_miembros auditMiembros;
     t_matriz_audit_titulos  auditTitulos;
-
-    // Aca pedimos fecha proceso y la parseamos a t_fecha //
 
     indice_crear(&indiceExitoMiembros, CANTIDAD_ELEMENTOS, sizeof(t_reg_indice));
     indice_crear(&indiceExitoTitulos,  CANTIDAD_ELEMENTOS, sizeof(t_reg_indice_titulo));

@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <string.h>
+#include <time.h>
+#include <stdbool.h>
 #include "utils-fechas.h"
 
 int esBisiesto(int anio){
@@ -64,4 +67,39 @@ int calcularEdad(t_fecha fechaNacimiento, t_fecha fechaProceso){
 
 int parsearFecha(const char *str, t_fecha *fecha){
     return sscanf(str, "%d/%d/%d", &fecha->dia, &fecha->mes, &fecha->anio) == 3;
+}
+
+t_fecha pedirFechaProceso(void){
+    char buffer[32];
+    t_fecha fecha;
+    time_t ahora;
+    bool fechaLista = false;
+    bool usarSistema = false;
+
+    while (!fechaLista && !usarSistema){
+        printf("Ingrese fecha de proceso (DD/MM/AAAA) o ENTER para usar fecha del sistema: ");
+
+        if (fgets(buffer, sizeof(buffer), stdin) == NULL){
+            usarSistema = true;
+        } else {
+            buffer[strcspn(buffer, "\r\n")] = '\0';
+
+            if (buffer[0] == '\0'){
+                usarSistema = true;
+            } else if (parsearFecha(buffer, &fecha) && esFechaValida(fecha)){
+                fechaLista = true;
+            } else {
+                printf("Fecha invalida.\n");
+            }
+        }
+    }
+
+    if (usarSistema){
+        char fechaStr[16];
+        ahora = time(NULL);
+        strftime(fechaStr, sizeof(fechaStr), "%d/%m/%Y", localtime(&ahora));
+        parsearFecha(fechaStr, &fecha);
+    }
+
+    return fecha;
 }
