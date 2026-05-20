@@ -22,7 +22,7 @@ static int cmpRegIndiceTituloPorId(const void *a, const void *b){
     return 0;
 }
 
-void cargaTitulos(t_indice *indiceExito){
+void cargaTitulos(t_indice *indiceExito,t_matriz_audit_titulos *audit){
     t_indice indiceRaw;
     Titulo buffer;
     Titulo *titulos;
@@ -44,8 +44,9 @@ void cargaTitulos(t_indice *indiceExito){
             reg.nro_reg = i;
             indice_insertar(indiceExito, &reg, sizeof(t_reg_indice_titulo),
                             cmpRegIndiceTituloPorId);
+        } else {
+            agregarMatrizAuditTitulos(audit, resultado, titulos[i].idPelicula);
         }
-        // cuando agreguemos el indice de auditoria, insertar aca el titulo con su codigo de error //
     }
 
     indice_vaciar(&indiceRaw);

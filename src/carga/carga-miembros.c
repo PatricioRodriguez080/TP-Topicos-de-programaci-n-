@@ -22,7 +22,7 @@ static int cmpRegIndicePorDni(const void *a, const void *b){
     return 0;
 }
 
-void cargaMiembros(t_indice *indiceExito, t_fecha fechaProceso){
+void cargaMiembros(t_indice *indiceExito,t_matriz_audit_miembros *audit,t_fecha fechaProceso){
     t_indice indiceRaw;
     Miembro buffer;
     Miembro *miembros;
@@ -33,8 +33,7 @@ void cargaMiembros(t_indice *indiceExito, t_fecha fechaProceso){
     csvAMiembrosBin(ARCHIVO_MIEMBROS_CSV, ARCHIVO_MIEMBROS_BIN);
 
     indice_crear(&indiceRaw, CANTIDAD_ELEMENTOS, sizeof(Miembro));
-    indice_cargar(ARCHIVO_MIEMBROS_BIN, &indiceRaw, &buffer,
-                  sizeof(Miembro), cmpMiembrosPorDni);
+    indice_cargar(ARCHIVO_MIEMBROS_BIN, &indiceRaw, &buffer,sizeof(Miembro), cmpMiembrosPorDni);
 
     miembros = (Miembro *) indiceRaw.vindice;
     for (i = 0; i < indiceRaw.cantidad_elementos_actual; i++){
@@ -42,10 +41,10 @@ void cargaMiembros(t_indice *indiceExito, t_fecha fechaProceso){
         if (resultado == VALIDACION_OK){
             reg.dni = miembros[i].dni;
             reg.nro_reg = i;
-            indice_insertar(indiceExito, &reg, sizeof(t_reg_indice),
-                            cmpRegIndicePorDni);
+            indice_insertar(indiceExito, &reg, sizeof(t_reg_indice),cmpRegIndicePorDni);
+        } else {
+            agregarMatrizAuditMiembros(audit, resultado, miembros[i].dni);
         }
-        // cuando agreguemos el indice de auditoria, insertar aca el miembro con su codigo de error //
     }
 
     indice_vaciar(&indiceRaw);

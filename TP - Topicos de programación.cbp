@@ -66,6 +66,14 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/carga/preproc-titulos.h" />
+		<Unit filename="src/auditoria/matriz-audit-miembros.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/auditoria/matriz-audit-miembros.h" />
+		<Unit filename="src/auditoria/matriz-audit-titulos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/auditoria/matriz-audit-titulos.h" />
 		<Unit filename="src/indice/indice.c">
 			<Option compilerVar="CC" />
 		</Unit>
