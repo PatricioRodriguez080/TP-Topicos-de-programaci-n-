@@ -74,6 +74,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/auditoria/matriz-audit-titulos.h" />
+		<Unit filename="src/menu/menu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/menu/menu.h" />
 		<Unit filename="src/indice/indice.c">
 			<Option compilerVar="CC" />
 		</Unit>

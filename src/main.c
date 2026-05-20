@@ -7,6 +7,7 @@
 #include "validaciones/validaciones-miembros.h"
 #include "auditoria/matriz-audit-miembros.h"
 #include "auditoria/matriz-audit-titulos.h"
+#include "menu/menu.h"
 
 int main(){
     t_fecha fechaProceso = pedirFechaProceso();
@@ -14,6 +15,7 @@ int main(){
     t_indice indiceExitoTitulos;
     t_matriz_audit_miembros auditMiembros;
     t_matriz_audit_titulos  auditTitulos;
+    t_contexto_menu ctx;
 
     indice_crear(&indiceExitoMiembros, CANTIDAD_ELEMENTOS, sizeof(t_reg_indice));
     indice_crear(&indiceExitoTitulos,  CANTIDAD_ELEMENTOS, sizeof(t_reg_indice_titulo));
@@ -24,7 +26,13 @@ int main(){
     cargaMiembros(&indiceExitoMiembros, &auditMiembros, fechaProceso);
     cargaTitulos(&indiceExitoTitulos,  &auditTitulos);
 
-    // aca deberia de ir el menu entiendo, no creo haber visto que se mencione el hecho de mostrar auditoria de errores //
+    ctx.exitoMiembros = &indiceExitoMiembros;
+    ctx.exitoTitulos  = &indiceExitoTitulos;
+    ctx.auditMiembros = &auditMiembros;
+    ctx.auditTitulos  = &auditTitulos;
+    ctx.fechaProceso  = fechaProceso;
+
+    mostrarMenu(&ctx);
 
     liberarMatrizAuditMiembros(&auditMiembros);
     liberarMatrizAuditTitulos(&auditTitulos);
