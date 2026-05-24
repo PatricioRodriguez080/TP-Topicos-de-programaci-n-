@@ -1,26 +1,11 @@
 #include <stdio.h>
 #include "carga-miembros.h"
 #include "preproc-miembros.h"
+#include "comparadores.h"
 #include "../validaciones/validaciones-miembros.h"
 
 #define ARCHIVO_MIEMBROS_CSV  "Archivos/miembros.csv"
 #define ARCHIVO_MIEMBROS_BIN  "Archivos/miembros.bin"
-
-static int cmpMiembrosPorDni(const void *a, const void *b){
-    const Miembro *ma = a;
-    const Miembro *mb = b;
-    if (ma->dni < mb->dni) return -1;
-    if (ma->dni > mb->dni) return 1;
-    return 0;
-}
-
-static int cmpRegIndicePorDni(const void *a, const void *b){
-    const t_reg_indice *ra = a;
-    const t_reg_indice *rb = b;
-    if (ra->dni < rb->dni) return -1;
-    if (ra->dni > rb->dni) return 1;
-    return 0;
-}
 
 void cargaMiembros(t_indice *indiceExito, t_indice *miembrosCompletos, t_matriz_audit_miembros *audit, t_fecha fechaProceso){
     Miembro buffer;

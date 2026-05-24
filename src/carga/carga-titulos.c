@@ -1,26 +1,11 @@
 #include <stdio.h>
 #include "carga-titulos.h"
 #include "preproc-titulos.h"
+#include "comparadores.h"
 #include "../validaciones/validaciones-titulos.h"
 
 #define ARCHIVO_TITULOS_CSV  "Archivos/titulos.csv"
 #define ARCHIVO_TITULOS_BIN  "Archivos/titulos.bin"
-
-static int cmpTitulosPorId(const void *a, const void *b){
-    const Titulo *ta = a;
-    const Titulo *tb = b;
-    if (ta->idPelicula < tb->idPelicula) return -1;
-    if (ta->idPelicula > tb->idPelicula) return 1;
-    return 0;
-}
-
-static int cmpRegIndiceTituloPorId(const void *a, const void *b){
-    const t_reg_indice_titulo *ra = a;
-    const t_reg_indice_titulo *rb = b;
-    if (ra->idPelicula < rb->idPelicula) return -1;
-    if (ra->idPelicula > rb->idPelicula) return 1;
-    return 0;
-}
 
 void cargaTitulos(t_indice *indiceExito, t_indice *titulosCompletos,t_matriz_audit_titulos *audit){
     Titulo buffer;

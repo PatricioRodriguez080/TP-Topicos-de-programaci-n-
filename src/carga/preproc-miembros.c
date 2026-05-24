@@ -2,17 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "preproc-miembros.h"
+#include "comparadores.h"
 #include "../indice/indice.h"
 #include "../validaciones/validaciones-miembros.h"
 #include "../utils/utils-fechas.h"
-
-static int cmpMiembrosPorDni(const void *a, const void *b){
-    const Miembro *ma = a;
-    const Miembro *mb = b;
-    if (ma->dni < mb->dni) return -1;
-    if (ma->dni > mb->dni) return 1;
-    return 0;
-}
 
 static int parsearLineaCSV(char *linea, Miembro *m){
     char *token;

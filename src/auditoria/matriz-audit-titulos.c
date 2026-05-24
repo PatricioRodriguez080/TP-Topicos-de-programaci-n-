@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "matriz-audit-titulos.h"
 #include "../validaciones/validaciones-titulos.h"
@@ -36,4 +37,46 @@ void liberarMatrizAuditTitulos(t_matriz_audit_titulos *m){
         m->filas[i].cantidad = 0;
         m->filas[i].capacidad = 0;
     }
+}
+
+int guardarMatrizAuditTitulos(const char *path, const t_matriz_audit_titulos *m){
+    FILE *fp = fopen(path, "wb");
+    int i;
+    if (!fp) return 0;
+    for (i = 0; i < N_TIPOS_ERROR_TITULOS; i++){
+        fwrite(&m->filas[i].cantidad, sizeof(unsigned), 1, fp);
+        if (m->filas[i].cantidad > 0 && m->filas[i].ids)
+            fwrite(m->filas[i].ids, sizeof(int), m->filas[i].cantidad, fp);
+    }
+    fclose(fp);
+    return 1;
+}
+
+int cargarMatrizAuditTitulos(const char *path, t_matriz_audit_titulos *m){
+    FILE *fp = fopen(path, "rb");
+    int i;
+    unsigned cant;
+    if (!fp) return 0;
+    for (i = 0; i < N_TIPOS_ERROR_TITULOS; i++){
+        if (fread(&cant, sizeof(unsigned), 1, fp) != 1){
+            fclose(fp);
+            return 0;
+        }
+        if (cant > m->filas[i].capacidad){
+            int *nv = realloc(m->filas[i].ids, cant * sizeof(int));
+            if (!nv){
+                fclose(fp);
+                return 0;
+            }
+            m->filas[i].ids = nv;
+            m->filas[i].capacidad = cant;
+        }
+        if (cant > 0 && fread(m->filas[i].ids, sizeof(int), cant, fp) != cant){
+            fclose(fp);
+            return 0;
+        }
+        m->filas[i].cantidad = cant;
+    }
+    fclose(fp);
+    return 1;
 }

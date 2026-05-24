@@ -54,13 +54,41 @@ int indice_insertar(t_indice *indice, const void *registro, size_t tamanyo,
 
 int indice_eliminar(t_indice *indice, const void *registro, size_t tamanyo,
                     int (*cmp)(const void *, const void *)){
-    /* TODO */
-    return ERROR;
+    int pos;
+    char *base;
+
+    pos = indice_buscar(indice, registro,
+                        indice->cantidad_elementos_actual, tamanyo, cmp);
+    if (pos == NO_EXISTE) return ERROR;
+
+    base = (char *) indice->vindice;
+    if ((unsigned) pos < indice->cantidad_elementos_actual - 1)
+        memmove(base + pos * tamanyo,
+                base + (pos + 1) * tamanyo,
+                (indice->cantidad_elementos_actual - pos - 1) * tamanyo);
+    indice->cantidad_elementos_actual--;
+    return OK;
 }
 
 int indice_buscar(const t_indice *indice, const void *registro, size_t nmemb,
                   size_t tamanyo, int (*cmp)(const void *, const void *)){
-    /* TODO */
+    char *base;
+    int lo, hi, mid, c;
+    (void) nmemb;
+
+    if (!indice || !indice->vindice) return NO_EXISTE;
+
+    base = (char *) indice->vindice;
+    lo = 0;
+    hi = (int) indice->cantidad_elementos_actual - 1;
+
+    while (lo <= hi){
+        mid = lo + (hi - lo) / 2;
+        c = cmp(base + mid * tamanyo, registro);
+        if (c == 0) return mid;
+        if (c < 0)  lo = mid + 1;
+        else        hi = mid - 1;
+    }
     return NO_EXISTE;
 }
 
@@ -74,4 +102,12 @@ int indice_cargar(const char *path, t_indice *indice, void *vreg_ind,
 
     fclose(fp);
     return OK;
+}
+
+void indice_liberar(t_indice *indice){
+    if (!indice) return;
+    free(indice->vindice);
+    indice->vindice = NULL;
+    indice->cantidad_elementos_actual = 0;
+    indice->cantidad_elementos_maxima = 0;
 }

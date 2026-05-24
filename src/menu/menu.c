@@ -2,47 +2,8 @@
 #include <string.h>
 #include <stdbool.h>
 #include "menu.h"
-
-// Estas funciones creo que quedarian mejor si las ponemos dentro del modulo al que pertenecen, las importamos aca y las llamamos //
-void altaMiembro(t_contexto_menu *ctx){
-    // contenido, leer comentario de arriba tambien //
-}
-
-void altaTitulo(t_contexto_menu *ctx){
-    // contenido, leer comentario de arriba tambien //
-}
-
-void bajaMiembro(t_contexto_menu *ctx){
-    // contenido, leer comentario de arriba tambien //
-}
-
-void bajaTitulo(t_contexto_menu *ctx){
-    // contenido, leer comentario de arriba tambien //
-}
-
-void modificarMiembro(t_contexto_menu *ctx){
-    // contenido, leer comentario de arriba tambien //
-}
-
-void modificarTitulo(t_contexto_menu *ctx){
-    // contenido, leer comentario de arriba tambien //
-}
-
-void mostrarInfoMiembro(t_contexto_menu *ctx){
-    // contenido, leer comentario de arriba tambien //
-}
-
-void alquilarTitulo(t_contexto_menu *ctx){
-    // contenido, leer comentario de arriba tambien //
-}
-
-static void listarMiembrosPorDni(t_contexto_menu *ctx){
-    // contenido, leer comentario de arriba tambien //
-}
-
-void listarMiembrosPorPlan(t_contexto_menu *ctx){
-    // contenido, leer comentario de arriba tambien //
-}
+#include "../operaciones/operaciones-miembros.h"
+#include "../operaciones/operaciones-titulos.h"
 
 void imprimirOpciones(void){
     printf("\n=== MENU DE OPERACIONES ===\n");
@@ -77,17 +38,17 @@ void mostrarMenu(t_contexto_menu *ctx){
         opcion = leerOpcion();
 
         switch (opcion){
-            case 'a': altaMiembro(ctx); break;
-            case 'b': altaTitulo(ctx); break;
-            case 'c': bajaMiembro(ctx); break;
-            case 'd': bajaTitulo(ctx); break;
-            case 'e': modificarMiembro(ctx); break;
-            case 'f': modificarTitulo(ctx); break;
-            case 'g': mostrarInfoMiembro(ctx); break;
-            case 'h': alquilarTitulo(ctx); break;
-            case 'i': listarMiembrosPorDni(ctx); break;
-            case 'j': listarMiembrosPorPlan(ctx); break;
-            case 'k': salir = true; break;
+            case 'a': op_altaMiembro(ctx);           break;
+            case 'b': op_altaTitulo(ctx);            break;
+            case 'c': op_bajaMiembro(ctx);           break;
+            case 'd': op_bajaTitulo(ctx);            break;
+            case 'e': op_modificarMiembro(ctx);      break;
+            case 'f': op_modificarTitulo(ctx);       break;
+            case 'g': op_mostrarInfoMiembro(ctx);    break;
+            case 'h': op_alquilarTitulo(ctx);        break;
+            case 'i': op_listarMiembrosPorDni(ctx);  break;
+            case 'j': op_listarMiembrosPorPlan(ctx); break;
+            case 'k': salir = true;                  break;
             default:  printf("Opcion invalida.\n"); break;
         }
     }

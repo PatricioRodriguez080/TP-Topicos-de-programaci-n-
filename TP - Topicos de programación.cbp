@@ -66,6 +66,14 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/carga/preproc-titulos.h" />
+		<Unit filename="src/carga/comparadores.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/carga/comparadores.h" />
+		<Unit filename="src/carga/persistencia.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/carga/persistencia.h" />
 		<Unit filename="src/auditoria/matriz-audit-miembros.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -82,6 +90,22 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/indice/indice.h" />
+		<Unit filename="src/utils/utils-entrada.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/utils/utils-entrada.h" />
+		<Unit filename="src/operaciones/alquileres.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/operaciones/alquileres.h" />
+		<Unit filename="src/operaciones/operaciones-miembros.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/operaciones/operaciones-miembros.h" />
+		<Unit filename="src/operaciones/operaciones-titulos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/operaciones/operaciones-titulos.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

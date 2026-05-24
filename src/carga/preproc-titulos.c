@@ -2,16 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "preproc-titulos.h"
+#include "comparadores.h"
 #include "../indice/indice.h"
 #include "../validaciones/validaciones-titulos.h"
-
-static int cmpTitulosPorId(const void *a, const void *b){
-    const Titulo *ta = a;
-    const Titulo *tb = b;
-    if (ta->idPelicula < tb->idPelicula) return -1;
-    if (ta->idPelicula > tb->idPelicula) return 1;
-    return 0;
-}
 
 static int parsearLineaCSV(char *linea, Titulo *t){
     char *token;
@@ -32,6 +25,8 @@ static int parsearLineaCSV(char *linea, Titulo *t){
 
     token = strtok_r(NULL, ";", &rest); if (!token) return ERROR;
     t->stock = atoi(token);
+
+    t->estado = 'A';
 
     return OK;
 }

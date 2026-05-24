@@ -1,0 +1,194 @@
+# depslib dependency file v1.0
+1779655538 source:c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\auditoria\matriz-audit-miembros.c
+	<stdlib.h>
+	"matriz-audit-miembros.h"
+
+1779655538 c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\auditoria\matriz-audit-miembros.h
+
+1779655538 source:c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\auditoria\matriz-audit-titulos.c
+	<stdlib.h>
+	"matriz-audit-titulos.h"
+	"../validaciones/validaciones-titulos.h"
+
+1779659596 c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\auditoria\matriz-audit-titulos.h
+
+1779660187 c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\validaciones\validaciones-titulos.h
+	"../utils/utils-validaciones.h"
+
+1779655538 c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\utils\utils-validaciones.h
+
+1779659540 source:c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\carga\carga-miembros.c
+	<stdio.h>
+	"carga-miembros.h"
+	"preproc-miembros.h"
+	"comparadores.h"
+	"../validaciones/validaciones-miembros.h"
+
+1779655538 c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\carga\carga-miembros.h
+	"../utils/utils-fechas.h"
+	"../indice/indice.h"
+	"../auditoria/matriz-audit-miembros.h"
+
+1779655538 c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\utils\utils-fechas.h
+
+1779660423 c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\indice\indice.h
+	<stddef.h>
+
+1779655538 c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\carga\preproc-miembros.h
+
+1779659526 c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\carga\comparadores.h
+
+1779655538 c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\validaciones\validaciones-miembros.h
+	"../utils/utils-fechas.h"
+	"../utils/utils-validaciones.h"
+
+1779659550 source:c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\carga\carga-titulos.c
+	<stdio.h>
+	"carga-titulos.h"
+	"preproc-titulos.h"
+	"comparadores.h"
+	"../validaciones/validaciones-titulos.h"
+
+1779655538 c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\carga\carga-titulos.h
+	"../indice/indice.h"
+	"../auditoria/matriz-audit-titulos.h"
+
+1779655538 c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\carga\preproc-titulos.h
+
+1779659728 source:c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\carga\persistencia.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"persistencia.h"
+	"comparadores.h"
+	"../validaciones/validaciones-miembros.h"
+	"../validaciones/validaciones-titulos.h"
+
+1779659717 c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\carga\persistencia.h
+	<stddef.h>
+	"../utils/utils-fechas.h"
+	"../indice/indice.h"
+
+1779659544 source:c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\carga\preproc-miembros.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"preproc-miembros.h"
+	"comparadores.h"
+	"../indice/indice.h"
+	"../validaciones/validaciones-miembros.h"
+	"../utils/utils-fechas.h"
+
+1779659559 source:c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\carga\preproc-titulos.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"preproc-titulos.h"
+	"comparadores.h"
+	"../indice/indice.h"
+	"../validaciones/validaciones-titulos.h"
+
+1779660194 source:c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\indice\indice.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"indice.h"
+
+1779660192 source:c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\main.c
+	<stdio.h>
+	<stdlib.h>
+	"utils/utils-fechas.h"
+	"carga/carga-miembros.h"
+	"carga/carga-titulos.h"
+	"carga/persistencia.h"
+	"indice/indice.h"
+	"validaciones/validaciones-miembros.h"
+	"validaciones/validaciones-titulos.h"
+	"auditoria/matriz-audit-miembros.h"
+	"auditoria/matriz-audit-titulos.h"
+	"menu/menu.h"
+	"operaciones/alquileres.h"
+
+1779659648 c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\menu\menu.h
+	"../indice/indice.h"
+	"../utils/utils-fechas.h"
+	"../auditoria/matriz-audit-miembros.h"
+	"../auditoria/matriz-audit-titulos.h"
+	"../operaciones/alquileres.h"
+
+1779660185 c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\operaciones\alquileres.h
+	"../utils/utils-fechas.h"
+
+1779659759 source:c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\menu\menu.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	"menu.h"
+	"../operaciones/operaciones-miembros.h"
+	"../operaciones/operaciones-titulos.h"
+
+1779660124 c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\operaciones\operaciones-miembros.h
+	"../menu/menu.h"
+
+1779660126 c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\operaciones\operaciones-titulos.h
+	"../menu/menu.h"
+
+1779659642 source:c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\operaciones\alquileres.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"alquileres.h"
+
+1779660160 source:c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\operaciones\operaciones-miembros.c
+	<stdio.h>
+	<string.h>
+	"operaciones-miembros.h"
+	"../carga/comparadores.h"
+	"../indice/indice.h"
+	"../utils/utils-entrada.h"
+	"../validaciones/validaciones-miembros.h"
+
+1779659599 c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\utils\utils-entrada.h
+	<stddef.h>
+	"utils-fechas.h"
+
+1779660181 source:c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\operaciones\operaciones-titulos.c
+	<stdio.h>
+	<string.h>
+	"operaciones-titulos.h"
+	"alquileres.h"
+	"../carga/comparadores.h"
+	"../indice/indice.h"
+	"../utils/utils-entrada.h"
+	"../validaciones/validaciones-miembros.h"
+	"../validaciones/validaciones-titulos.h"
+
+1779659605 source:c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\utils\utils-entrada.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"utils-entrada.h"
+
+1779655538 source:c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\utils\utils-fechas.c
+	<stdio.h>
+	<string.h>
+	<time.h>
+	<stdbool.h>
+	"utils-fechas.h"
+
+1779655538 source:c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\utils\utils-validaciones.c
+	"utils-validaciones.h"
+
+1779655538 source:c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\validaciones\validaciones-miembros.c
+	<stdio.h>
+	<string.h>
+	<ctype.h>
+	"validaciones-miembros.h"
+	"../utils/utils-fechas.h"
+
+1779659594 source:c:\users\isma\desktop\tp\tp-topicos-de-programaci-n-\src\validaciones\validaciones-titulos.c
+	<string.h>
+	"validaciones-titulos.h"
+	"validaciones-miembros.h"
+

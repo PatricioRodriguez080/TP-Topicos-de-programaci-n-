@@ -40,6 +40,14 @@ int validarStock(void *dato){
     return VALIDACION_OK;
 }
 
+int validarEstadoTitulo(void *dato){
+    DatosValidacionTitulo *d = (DatosValidacionTitulo *)dato;
+
+    if (d->titulo->estado != 'A' && d->titulo->estado != 'B')
+        return ERROR_ESTADO_TITULO;
+    return VALIDACION_OK;
+}
+
 int validarTitulo(Titulo titulo){
     DatosValidacionTitulo datos;
     datos.titulo = &titulo;
@@ -48,7 +56,8 @@ int validarTitulo(Titulo titulo){
         validarIdPelicula,
         validarNombreTitulo,
         validarGenero,
-        validarStock
+        validarStock,
+        validarEstadoTitulo
     };
 
     int cantidad = sizeof(validaciones) / sizeof(validaciones[0]);
