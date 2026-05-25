@@ -2,7 +2,7 @@
 #define PERSISTENCIA_H_INCLUDED
 
 #include <stddef.h>
-#include "../utils/utils-fechas.h"
+#include "utils-fechas.h"
 #include "../indice/indice.h"
 
 void armarNombreArchivo(char *out, size_t n,

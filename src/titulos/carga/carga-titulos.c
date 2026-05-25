@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "carga-titulos.h"
 #include "preproc-titulos.h"
-#include "comparadores.h"
+#include "../comparadores/comparadores.h"
 #include "../validaciones/validaciones-titulos.h"
 
 #define ARCHIVO_TITULOS_CSV  "Archivos/titulos.csv"

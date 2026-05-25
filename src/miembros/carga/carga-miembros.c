@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "carga-miembros.h"
 #include "preproc-miembros.h"
-#include "comparadores.h"
+#include "../comparadores/comparadores.h"
 #include "../validaciones/validaciones-miembros.h"
 
 #define ARCHIVO_MIEMBROS_CSV  "Archivos/miembros.csv"

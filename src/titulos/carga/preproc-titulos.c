@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "preproc-titulos.h"
-#include "comparadores.h"
-#include "../indice/indice.h"
+#include "../comparadores/comparadores.h"
+#include "../../indice/indice.h"
 #include "../validaciones/validaciones-titulos.h"
 
 static int parsearLineaCSV(char *linea, Titulo *t){

@@ -1,16 +1,16 @@
 #include <stdio.h>
 #include <string.h>
 #include "operaciones-miembros.h"
-#include "../carga/comparadores.h"
-#include "../indice/indice.h"
-#include "../utils/utils-entrada.h"
+#include "../comparadores/comparadores.h"
+#include "../../indice/indice.h"
+#include "../../utils/utils-entrada.h"
 #include "../validaciones/validaciones-miembros.h"
 
-void op_altaMiembro(t_contexto_menu *ctx){
+void altaMiembro(t_contexto_menu *ctx){
     (void) ctx;
 }
 
-void op_bajaMiembro(t_contexto_menu *ctx){
+void bajaMiembro(t_contexto_menu *ctx){
     long dni;
     Miembro clave;
     Miembro *vec;
@@ -24,9 +24,7 @@ void op_bajaMiembro(t_contexto_menu *ctx){
     memset(&clave, 0, sizeof(clave));
     clave.dni = dni;
 
-    pos = indice_buscar(ctx->miembrosCompletos, &clave,
-                        ctx->miembrosCompletos->cantidad_elementos_actual,
-                        sizeof(Miembro), cmpMiembrosPorDni);
+    pos = indice_buscar(ctx->miembrosCompletos, &clave, ctx->miembrosCompletos->cantidad_elementos_actual, sizeof(Miembro), cmpMiembrosPorDni);
     if (pos == NO_EXISTE){
         printf("DNI inexistente.\n");
         return;
@@ -41,13 +39,12 @@ void op_bajaMiembro(t_contexto_menu *ctx){
 
     regClave.dni = dni;
     regClave.nro_reg = 0;
-    indice_eliminar(ctx->exitoMiembros, &regClave,
-                    sizeof(t_reg_indice), cmpRegIndicePorDni);
+    indice_eliminar(ctx->exitoMiembros, &regClave, sizeof(t_reg_indice), cmpRegIndicePorDni);
 
     printf("Miembro %ld dado de baja.\n", dni);
 }
 
-void op_modificarMiembro(t_contexto_menu *ctx){
+void modificarMiembro(t_contexto_menu *ctx){
     long dni;
     Miembro clave, copia;
     Miembro *vec;
@@ -125,7 +122,7 @@ void op_modificarMiembro(t_contexto_menu *ctx){
     printf("Miembro actualizado.\n");
 }
 
-void op_mostrarInfoMiembro(t_contexto_menu *ctx){
+void mostrarInfoMiembro(t_contexto_menu *ctx){
     long dni;
     Miembro clave;
     Miembro *m;
@@ -164,7 +161,7 @@ void op_mostrarInfoMiembro(t_contexto_menu *ctx){
     printf("Email tutor    : %s\n", m->emailTutor);
 }
 
-void op_listarMiembrosPorDni(t_contexto_menu *ctx){
+void listarMiembrosPorDni(t_contexto_menu *ctx){
     Miembro *vec = (Miembro *) ctx->miembrosCompletos->vindice;
     unsigned i, n = ctx->miembrosCompletos->cantidad_elementos_actual;
     int mostrados = 0;
@@ -196,7 +193,7 @@ static void imprimirCelda(const t_reg_nombre *r, const char *plan){
     else                            printf("%-10d ", 0);
 }
 
-void op_listarMiembrosPorPlan(t_contexto_menu *ctx){
+void listarMiembrosPorPlan(t_contexto_menu *ctx){
     Miembro *vec = (Miembro *) ctx->miembrosCompletos->vindice;
     unsigned n = ctx->miembrosCompletos->cantidad_elementos_actual;
     unsigned i;

@@ -1,8 +1,9 @@
 #ifndef VALIDACIONES_MIEMBROS_H
 #define VALIDACIONES_MIEMBROS_H
 
-#include "../utils/utils-fechas.h"
-#include "../utils/utils-validaciones.h"
+#include "../../utils/utils-fechas.h"
+#include "../../utils/utils-validaciones.h"
+#include "../miembro.h"
 
 #define ERROR_DNI               1
 #define ERROR_SEXO              2
@@ -15,20 +16,6 @@
 #define ERROR_EMAIL_TUTOR          9
 #define ERROR_FECHA_ULTIMA_CUOTA   10
 #define ERROR_APELLIDO_NOMBRE      11
-
-typedef struct {
-    long    dni;
-    char    cuil[14];
-    char    apellidoNombre[60];
-    t_fecha fechaNacimiento;
-    char    sexo;
-    t_fecha fechaAfiliacion;
-    char    categoria[10];
-    t_fecha fechaUltimaCuota;
-    char    estado;
-    char    plan[10];
-    char    emailTutor[30];
-} Miembro;
 
 typedef struct {
     Miembro *miembro;

@@ -2,8 +2,8 @@
 #include <string.h>
 #include <stdbool.h>
 #include "menu.h"
-#include "../operaciones/operaciones-miembros.h"
-#include "../operaciones/operaciones-titulos.h"
+#include "../miembros/operaciones/operaciones-miembros.h"
+#include "../titulos/operaciones/operaciones-titulos.h"
 
 void imprimirOpciones(void){
     printf("\n=== MENU DE OPERACIONES ===\n");
@@ -38,16 +38,16 @@ void mostrarMenu(t_contexto_menu *ctx){
         opcion = leerOpcion();
 
         switch (opcion){
-            case 'a': op_altaMiembro(ctx);           break;
-            case 'b': op_altaTitulo(ctx);            break;
-            case 'c': op_bajaMiembro(ctx);           break;
-            case 'd': op_bajaTitulo(ctx);            break;
-            case 'e': op_modificarMiembro(ctx);      break;
-            case 'f': op_modificarTitulo(ctx);       break;
-            case 'g': op_mostrarInfoMiembro(ctx);    break;
-            case 'h': op_alquilarTitulo(ctx);        break;
-            case 'i': op_listarMiembrosPorDni(ctx);  break;
-            case 'j': op_listarMiembrosPorPlan(ctx); break;
+            case 'a': altaMiembro(ctx);              break;
+            case 'b': altaTitulo(ctx);               break;
+            case 'c': bajaMiembro(ctx);              break;
+            case 'd': bajaTitulo(ctx);               break;
+            case 'e': modificarMiembro(ctx);         break;
+            case 'f': modificarTitulo(ctx);          break;
+            case 'g': mostrarInfoMiembro(ctx);       break;
+            case 'h': alquilarTitulo(ctx);           break;
+            case 'i': listarMiembrosPorDni(ctx);     break;
+            case 'j': listarMiembrosPorPlan(ctx);    break;
             case 'k': salir = true;                  break;
             default:  printf("Opcion invalida.\n"); break;
         }

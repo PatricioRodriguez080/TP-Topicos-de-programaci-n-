@@ -2,7 +2,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "validaciones-miembros.h"
-#include "../utils/utils-fechas.h"
+#include "../../utils/utils-fechas.h"
 
 int validarDNI(void *dato){
     DatosValidacionMiembro *d = (DatosValidacionMiembro *)dato;

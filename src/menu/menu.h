@@ -3,9 +3,9 @@
 
 #include "../indice/indice.h"
 #include "../utils/utils-fechas.h"
-#include "../auditoria/matriz-audit-miembros.h"
-#include "../auditoria/matriz-audit-titulos.h"
-#include "../operaciones/alquileres.h"
+#include "../miembros/auditoria/matriz-audit-miembros.h"
+#include "../titulos/auditoria/matriz-audit-titulos.h"
+#include "../alquileres/alquileres.h"
 
 typedef struct {
     t_indice *exitoMiembros;

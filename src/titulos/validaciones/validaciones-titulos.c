@@ -1,6 +1,6 @@
 #include <string.h>
 #include "validaciones-titulos.h"
-#include "validaciones-miembros.h"
+#include "../../miembros/validaciones/validaciones-miembros.h"
 
 int validarIdPelicula(void *dato){
     DatosValidacionTitulo *d = (DatosValidacionTitulo *)dato;

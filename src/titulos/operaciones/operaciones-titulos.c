@@ -1,18 +1,19 @@
 #include <stdio.h>
 #include <string.h>
 #include "operaciones-titulos.h"
-#include "alquileres.h"
-#include "../carga/comparadores.h"
-#include "../indice/indice.h"
-#include "../utils/utils-entrada.h"
-#include "../validaciones/validaciones-miembros.h"
+#include "../../alquileres/alquileres.h"
+#include "../comparadores/comparadores.h"
+#include "../../miembros/comparadores/comparadores.h"
+#include "../../indice/indice.h"
+#include "../../utils/utils-entrada.h"
+#include "../../miembros/validaciones/validaciones-miembros.h"
 #include "../validaciones/validaciones-titulos.h"
 
-void op_altaTitulo(t_contexto_menu *ctx){
+void altaTitulo(t_contexto_menu *ctx){
     (void) ctx;
 }
 
-void op_bajaTitulo(t_contexto_menu *ctx){
+void bajaTitulo(t_contexto_menu *ctx){
     int id;
     Titulo clave;
     Titulo *vec;
@@ -49,7 +50,7 @@ void op_bajaTitulo(t_contexto_menu *ctx){
     printf("Titulo %d dado de baja.\n", id);
 }
 
-void op_modificarTitulo(t_contexto_menu *ctx){
+void modificarTitulo(t_contexto_menu *ctx){
     int id, opcion, res;
     Titulo clave, copia;
     Titulo *vec;
@@ -102,7 +103,7 @@ void op_modificarTitulo(t_contexto_menu *ctx){
     printf("Titulo actualizado.\n");
 }
 
-void op_alquilarTitulo(t_contexto_menu *ctx){
+void alquilarTitulo(t_contexto_menu *ctx){
     long dni;
     int id, posM, posT;
     Miembro claveM;
@@ -155,14 +156,14 @@ void op_alquilarTitulo(t_contexto_menu *ctx){
     }
 
     if (strcmp(vecM[posM].plan, "BASIC") == 0){
-        if (alquileres_contarActivosDeMiembro(ctx->alquileres, dni) >= 2){
+        if (contarAlquileresActivosDeMiembro(ctx->alquileres, dni) >= 2){
             printf("Plan BASIC: maximo 2 alquileres simultaneos.\n");
             return;
         }
     }
 
     vecT[posT].stock--;
-    if (!alquileres_registrar(ctx->alquileres, dni, id, ctx->fechaProceso)){
+    if (!registrarAlquiler(ctx->alquileres, dni, id, ctx->fechaProceso)){
         printf("No se pudo registrar el alquiler.\n");
         vecT[posT].stock++;
         return;

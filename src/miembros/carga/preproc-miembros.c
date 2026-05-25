@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "preproc-miembros.h"
-#include "comparadores.h"
-#include "../indice/indice.h"
+#include "../comparadores/comparadores.h"
+#include "../../indice/indice.h"
 #include "../validaciones/validaciones-miembros.h"
-#include "../utils/utils-fechas.h"
+#include "../../utils/utils-fechas.h"
 
 static int parsearLineaCSV(char *linea, Miembro *m){
     char *token;
