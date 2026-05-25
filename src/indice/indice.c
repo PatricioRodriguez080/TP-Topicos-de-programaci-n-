@@ -26,14 +26,12 @@ void indice_vaciar(t_indice *indice){
     indice->cantidad_elementos_actual = 0;
 }
 
-int indice_insertar(t_indice *indice, const void *registro, size_t tamanyo,
-                    int (*cmp)(const void *, const void *)){
+int indice_insertar(t_indice *indice, const void *registro, size_t tamanyo, int (*cmp)(const void *, const void *)){
     char *base;
     int pos;
 
     if (indice_lleno(indice))
-        indice_redimensionar(indice,
-            (size_t)(indice->cantidad_elementos_maxima * INCREMENTO), tamanyo);
+        indice_redimensionar(indice, (size_t)(indice->cantidad_elementos_maxima * INCREMENTO), tamanyo);
 
     if (!indice->vindice) return ERROR;
 
@@ -43,35 +41,28 @@ int indice_insertar(t_indice *indice, const void *registro, size_t tamanyo,
         pos--;
 
     if ((unsigned)pos < indice->cantidad_elementos_actual)
-        memmove(base + (pos + 1) * tamanyo,
-                base + pos * tamanyo,
-                (indice->cantidad_elementos_actual - pos) * tamanyo);
+        memmove(base + (pos + 1) * tamanyo, base + pos * tamanyo, (indice->cantidad_elementos_actual - pos) * tamanyo);
 
     memcpy(base + pos * tamanyo, registro, tamanyo);
     indice->cantidad_elementos_actual++;
     return OK;
 }
 
-int indice_eliminar(t_indice *indice, const void *registro, size_t tamanyo,
-                    int (*cmp)(const void *, const void *)){
+int indice_eliminar(t_indice *indice, const void *registro, size_t tamanyo, int (*cmp)(const void *, const void *)){
     int pos;
     char *base;
 
-    pos = indice_buscar(indice, registro,
-                        indice->cantidad_elementos_actual, tamanyo, cmp);
+    pos = indice_buscar(indice, registro, indice->cantidad_elementos_actual, tamanyo, cmp);
     if (pos == NO_EXISTE) return ERROR;
 
     base = (char *) indice->vindice;
     if ((unsigned) pos < indice->cantidad_elementos_actual - 1)
-        memmove(base + pos * tamanyo,
-                base + (pos + 1) * tamanyo,
-                (indice->cantidad_elementos_actual - pos - 1) * tamanyo);
+        memmove(base + pos * tamanyo, base + (pos + 1) * tamanyo, (indice->cantidad_elementos_actual - pos - 1) * tamanyo);
     indice->cantidad_elementos_actual--;
     return OK;
 }
 
-int indice_buscar(const t_indice *indice, const void *registro, size_t nmemb,
-                  size_t tamanyo, int (*cmp)(const void *, const void *)){
+int indice_buscar(const t_indice *indice, const void *registro, size_t nmemb, size_t tamanyo, int (*cmp)(const void *, const void *)){
     char *base;
     int lo, hi, mid, c;
     (void) nmemb;
@@ -92,8 +83,7 @@ int indice_buscar(const t_indice *indice, const void *registro, size_t nmemb,
     return NO_EXISTE;
 }
 
-int indice_cargar(const char *path, t_indice *indice, void *vreg_ind,
-                  size_t tamanyo, int (*cmp)(const void *, const void *)){
+int indice_cargar(const char *path, t_indice *indice, void *vreg_ind, size_t tamanyo, int (*cmp)(const void *, const void *)){
     FILE *fp = fopen(path, "rb");
     if (!fp) return ERROR;
 

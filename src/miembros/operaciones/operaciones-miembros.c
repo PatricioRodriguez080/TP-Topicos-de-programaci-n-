@@ -56,9 +56,7 @@ void modificarMiembro(t_contexto_menu *ctx){
     }
     memset(&clave, 0, sizeof(clave));
     clave.dni = dni;
-    pos = indice_buscar(ctx->miembrosCompletos, &clave,
-                        ctx->miembrosCompletos->cantidad_elementos_actual,
-                        sizeof(Miembro), cmpMiembrosPorDni);
+    pos = indice_buscar(ctx->miembrosCompletos, &clave, ctx->miembrosCompletos->cantidad_elementos_actual, sizeof(Miembro), cmpMiembrosPorDni);
     if (pos == NO_EXISTE){
         printf("DNI inexistente.\n");
         return;
@@ -80,9 +78,7 @@ void modificarMiembro(t_contexto_menu *ctx){
 
     switch (opcion){
         case 1:
-            if (!leerLineaTrim("Nuevo Apellido, Nombre: ",
-                               copia.apellidoNombre,
-                               sizeof(copia.apellidoNombre))) return;
+            if (!leerLineaTrim("Nuevo Apellido, Nombre: ", copia.apellidoNombre, sizeof(copia.apellidoNombre))) return;
             normalizarApellidoYNombre(copia.apellidoNombre);
             break;
         case 2:
@@ -91,22 +87,17 @@ void modificarMiembro(t_contexto_menu *ctx){
             calcularCUIL(xy, copia.dni, copia.cuil);
             break;
         case 3:
-            if (!leerFecha("Nueva fecha nacimiento (DD/MM/AAAA): ",
-                           &copia.fechaNacimiento)) return;
-            calcularCategoria(copia.fechaNacimiento,
-                              ctx->fechaProceso, copia.categoria);
+            if (!leerFecha("Nueva fecha nacimiento (DD/MM/AAAA): ", &copia.fechaNacimiento)) return;
+            calcularCategoria(copia.fechaNacimiento, ctx->fechaProceso, copia.categoria);
             break;
         case 4:
-            if (!leerLineaTrim("Nuevo plan (BASIC/PREMIUM/VIP/FAMILY): ",
-                               copia.plan, sizeof(copia.plan))) return;
+            if (!leerLineaTrim("Nuevo plan (BASIC/PREMIUM/VIP/FAMILY): ", copia.plan, sizeof(copia.plan))) return;
             break;
         case 5:
-            if (!leerLineaTrim("Nuevo email tutor: ",
-                               copia.emailTutor, sizeof(copia.emailTutor))) return;
+            if (!leerLineaTrim("Nuevo email tutor: ", copia.emailTutor, sizeof(copia.emailTutor))) return;
             break;
         case 6:
-            if (!leerFecha("Nueva fecha ultima cuota (DD/MM/AAAA): ",
-                           &copia.fechaUltimaCuota)) return;
+            if (!leerFecha("Nueva fecha ultima cuota (DD/MM/AAAA): ", &copia.fechaUltimaCuota)) return;
             break;
         default:
             printf("Opcion invalida.\n");
@@ -134,9 +125,7 @@ void mostrarInfoMiembro(t_contexto_menu *ctx){
     }
     memset(&clave, 0, sizeof(clave));
     clave.dni = dni;
-    pos = indice_buscar(ctx->miembrosCompletos, &clave,
-                        ctx->miembrosCompletos->cantidad_elementos_actual,
-                        sizeof(Miembro), cmpMiembrosPorDni);
+    pos = indice_buscar(ctx->miembrosCompletos, &clave, ctx->miembrosCompletos->cantidad_elementos_actual, sizeof(Miembro), cmpMiembrosPorDni);
     if (pos == NO_EXISTE){
         printf("DNI inexistente.\n");
         return;
@@ -148,14 +137,11 @@ void mostrarInfoMiembro(t_contexto_menu *ctx){
     printf("DNI            : %ld\n", m->dni);
     printf("CUIL           : %s\n",  m->cuil);
     printf("Apellido/Nombre: %s\n",  m->apellidoNombre);
-    printf("Nacimiento     : %02d/%02d/%04d\n",
-           m->fechaNacimiento.dia, m->fechaNacimiento.mes, m->fechaNacimiento.anio);
+    printf("Nacimiento     : %02d/%02d/%04d\n", m->fechaNacimiento.dia, m->fechaNacimiento.mes, m->fechaNacimiento.anio);
     printf("Sexo           : %c\n", m->sexo);
-    printf("Afiliacion     : %02d/%02d/%04d\n",
-           m->fechaAfiliacion.dia, m->fechaAfiliacion.mes, m->fechaAfiliacion.anio);
+    printf("Afiliacion     : %02d/%02d/%04d\n", m->fechaAfiliacion.dia, m->fechaAfiliacion.mes, m->fechaAfiliacion.anio);
     printf("Categoria      : %s\n", m->categoria);
-    printf("Ultima cuota   : %02d/%02d/%04d\n",
-           m->fechaUltimaCuota.dia, m->fechaUltimaCuota.mes, m->fechaUltimaCuota.anio);
+    printf("Ultima cuota   : %02d/%02d/%04d\n", m->fechaUltimaCuota.dia, m->fechaUltimaCuota.mes, m->fechaUltimaCuota.anio);
     printf("Estado         : %c\n", m->estado);
     printf("Plan           : %s\n", m->plan);
     printf("Email tutor    : %s\n", m->emailTutor);
@@ -169,23 +155,10 @@ void listarMiembrosPorDni(t_contexto_menu *ctx){
     printf("\n%-10s %-30s %-10s %-3s\n", "DNI", "APELLIDO Y NOMBRE", "PLAN", "EST");
     for (i = 0; i < n; i++){
         if (vec[i].estado == 'B') continue;
-        printf("%-10ld %-30s %-10s %c\n",
-               vec[i].dni, vec[i].apellidoNombre, vec[i].plan, vec[i].estado);
+        printf("%-10ld %-30s %-10s %c\n", vec[i].dni, vec[i].apellidoNombre, vec[i].plan, vec[i].estado);
         mostrados++;
     }
     if (!mostrados) printf("(sin miembros activos)\n");
-}
-
-typedef struct {
-    char apellidoNombre[60];
-    long dni;
-    char plan[10];
-} t_reg_nombre;
-
-static int cmpRegPorApellidoNombre(const void *a, const void *b){
-    const t_reg_nombre *ra = a;
-    const t_reg_nombre *rb = b;
-    return strcmp(ra->apellidoNombre, rb->apellidoNombre);
 }
 
 static void imprimirCelda(const t_reg_nombre *r, const char *plan){
@@ -204,8 +177,7 @@ void listarMiembrosPorPlan(t_contexto_menu *ctx){
     indice_crear(&aux, n + 1, sizeof(t_reg_nombre));
     for (i = 0; i < n; i++){
         if (vec[i].estado == 'B') continue;
-        strncpy(tmp.apellidoNombre, vec[i].apellidoNombre,
-                sizeof(tmp.apellidoNombre));
+        strncpy(tmp.apellidoNombre, vec[i].apellidoNombre, sizeof(tmp.apellidoNombre));
         tmp.apellidoNombre[sizeof(tmp.apellidoNombre)-1] = '\0';
         tmp.dni = vec[i].dni;
         strncpy(tmp.plan, vec[i].plan, sizeof(tmp.plan));

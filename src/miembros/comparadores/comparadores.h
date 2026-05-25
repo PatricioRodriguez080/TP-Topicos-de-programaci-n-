@@ -3,5 +3,6 @@
 
 int cmpMiembrosPorDni(const void *a, const void *b);
 int cmpRegIndicePorDni(const void *a, const void *b);
+int cmpRegPorApellidoNombre(const void *a, const void *b);
 
 #endif

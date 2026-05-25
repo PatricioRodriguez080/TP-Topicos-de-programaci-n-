@@ -17,4 +17,10 @@ typedef struct {
     char    emailTutor[30];
 } Miembro;
 
+typedef struct {
+    char apellidoNombre[60];
+    long dni;
+    char plan[10];
+} t_reg_nombre;
+
 #endif
