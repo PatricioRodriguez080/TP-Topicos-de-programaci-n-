@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utils/utils-fechas.h"
+#include "utils/archivos.h"
 #include "miembros/carga/carga-miembros.h"
+#include "miembros/persistencia/persistencia-miembros.h"
 #include "titulos/carga/carga-titulos.h"
-#include "utils/persistencia.h"
+#include "titulos/persistencia/persistencia-titulos.h"
 #include "indice/indice.h"
 #include "miembros/validaciones/validaciones-miembros.h"
 #include "titulos/validaciones/validaciones-titulos.h"

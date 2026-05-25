@@ -50,10 +50,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/utils/utils-entrada.h" />
-		<Unit filename="src/utils/persistencia.c">
+		<Unit filename="src/utils/archivos.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src/utils/persistencia.h" />
+		<Unit filename="src/utils/archivos.h" />
 		<Unit filename="src/menu/menu.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -75,6 +75,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/miembros/carga/preproc-miembros.h" />
+		<Unit filename="src/miembros/persistencia/persistencia-miembros.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/miembros/persistencia/persistencia-miembros.h" />
 		<Unit filename="src/miembros/auditoria/matriz-audit-miembros.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -100,6 +104,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/titulos/carga/preproc-titulos.h" />
+		<Unit filename="src/titulos/persistencia/persistencia-titulos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/titulos/persistencia/persistencia-titulos.h" />
 		<Unit filename="src/titulos/auditoria/matriz-audit-titulos.c">
 			<Option compilerVar="CC" />
 		</Unit>
