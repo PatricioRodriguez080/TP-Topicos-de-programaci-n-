@@ -42,46 +42,84 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/utils/utils-validaciones.h" />
-		<Unit filename="src/validaciones/validaciones-miembros.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/validaciones/validaciones-miembros.h" />
-		<Unit filename="src/validaciones/validaciones-titulos.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/validaciones/validaciones-titulos.h" />
-		<Unit filename="src/carga/carga-miembros.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/carga/carga-miembros.h" />
-		<Unit filename="src/carga/preproc-miembros.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/carga/preproc-miembros.h" />
-		<Unit filename="src/carga/carga-titulos.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/carga/carga-titulos.h" />
-		<Unit filename="src/carga/preproc-titulos.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/carga/preproc-titulos.h" />
-		<Unit filename="src/auditoria/matriz-audit-miembros.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/auditoria/matriz-audit-miembros.h" />
-		<Unit filename="src/auditoria/matriz-audit-titulos.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/auditoria/matriz-audit-titulos.h" />
-		<Unit filename="src/menu/menu.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/menu/menu.h" />
 		<Unit filename="src/indice/indice.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/indice/indice.h" />
+		<Unit filename="src/utils/utils-entrada.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/utils/utils-entrada.h" />
+		<Unit filename="src/utils/archivos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/utils/archivos.h" />
+		<Unit filename="src/menu/menu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/menu/menu.h" />
+		<Unit filename="src/miembros/miembro.h" />
+		<Unit filename="src/miembros/comparadores/comparadores.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/miembros/comparadores/comparadores.h" />
+		<Unit filename="src/miembros/validaciones/validaciones-miembros.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/miembros/validaciones/validaciones-miembros.h" />
+		<Unit filename="src/miembros/carga/carga-miembros.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/miembros/carga/carga-miembros.h" />
+		<Unit filename="src/miembros/carga/preproc-miembros.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/miembros/carga/preproc-miembros.h" />
+		<Unit filename="src/miembros/persistencia/persistencia-miembros.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/miembros/persistencia/persistencia-miembros.h" />
+		<Unit filename="src/miembros/auditoria/matriz-audit-miembros.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/miembros/auditoria/matriz-audit-miembros.h" />
+		<Unit filename="src/miembros/operaciones/operaciones-miembros.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/miembros/operaciones/operaciones-miembros.h" />
+		<Unit filename="src/titulos/titulo.h" />
+		<Unit filename="src/titulos/comparadores/comparadores.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/titulos/comparadores/comparadores.h" />
+		<Unit filename="src/titulos/validaciones/validaciones-titulos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/titulos/validaciones/validaciones-titulos.h" />
+		<Unit filename="src/titulos/carga/carga-titulos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/titulos/carga/carga-titulos.h" />
+		<Unit filename="src/titulos/carga/preproc-titulos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/titulos/carga/preproc-titulos.h" />
+		<Unit filename="src/titulos/persistencia/persistencia-titulos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/titulos/persistencia/persistencia-titulos.h" />
+		<Unit filename="src/titulos/auditoria/matriz-audit-titulos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/titulos/auditoria/matriz-audit-titulos.h" />
+		<Unit filename="src/titulos/operaciones/operaciones-titulos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/titulos/operaciones/operaciones-titulos.h" />
+		<Unit filename="src/alquileres/alquileres.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/alquileres/alquileres.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

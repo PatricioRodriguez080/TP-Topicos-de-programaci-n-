@@ -2,6 +2,7 @@
 #ifndef INDICE_H_INCLUDED
 
 #define INDICE_H_INCLUDED
+#include <stddef.h>
 #define CANTIDAD_ELEMENTOS 100
 #define INCREMENTO 1.3
 #define OK 1
@@ -53,7 +54,7 @@ Parámetros: indice: TDA índice.
 Retorno: OK si la operación fue exitosa y ERROR en caso contrario.
 Observaciones: Si el array está lleno, toma un 30 % más de memoria.
 **************************************************************************/
-int indice_insertar (t_indice *indice, const void *registro, size_t tamanyo, 
+int indice_insertar (t_indice *indice, const void *registro, size_t tamanyo,
 int (*cmp)(const void *, const void *));
 
 /**************************************************************************
@@ -76,11 +77,11 @@ Parámetros: indice: TDA índice.
  nmemb: cantidad de elementos del índice.
  tamanyo: espacio en bytes ocupado por el elemento a insertar.
  cmp: función de comparación provista.
-Retorno: NO_EXISTE si no existe o si existe, la posición ocupada dentro 
+Retorno: NO_EXISTE si no existe o si existe, la posición ocupada dentro
 del array.
 Observaciones: -
 **************************************************************************/
-int indice_buscar (const t_indice *indice, const void *registro, size_t nmemb, 
+int indice_buscar (const t_indice *indice, const void *registro, size_t nmemb,
 size_t tamanyo, int (*cmp)(const void *, const void *));
 
 /**************************************************************************
@@ -119,5 +120,13 @@ Observaciones: -
 **************************************************************************/
 int indice_cargar(const char* path, t_indice* indice, void *vreg_ind, size_t
 tamanyo, int (*cmp)(const void *, const void *));
+
+/**************************************************************************
+Descripción: libera la memoria del array dinámico y deja el índice vacío.
+Parámetros: indice: TDA índice.
+Retorno: n/a.
+Observaciones: -
+**************************************************************************/
+void indice_liberar(t_indice *indice);
 
 #endif // INDICE_H_INCLUDE
