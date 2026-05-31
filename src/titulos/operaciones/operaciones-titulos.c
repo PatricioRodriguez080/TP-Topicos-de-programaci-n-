@@ -10,7 +10,52 @@
 #include "../validaciones/validaciones-titulos.h"
 
 void altaTitulo(t_contexto_menu *ctx){
-    (void) ctx;
+    Titulo nuevo, clave;
+    t_reg_indice_titulo reg;
+    t_reg_indice_titulo *exitos;
+    int pos, res;
+    unsigned i;
+
+    memset(&nuevo, 0, sizeof(nuevo));
+
+    if (!leerInt("ID de pelicula: ", &nuevo.idPelicula)){
+        printf("Entrada invalida.\n");
+        return;
+    }
+    memset(&clave, 0, sizeof(clave));
+    clave.idPelicula = nuevo.idPelicula;
+    if (indice_buscar(ctx->titulosCompletos, &clave, ctx->titulosCompletos->cantidad_elementos_actual, sizeof(Titulo), cmpTitulosPorId) != NO_EXISTE){
+        printf("Ya existe un titulo con ese ID.\n");
+        return;
+    }
+
+    if (!leerLineaTrim("Titulo: ", nuevo.titulo, sizeof(nuevo.titulo))) return;
+    normalizarApellidoYNombre(nuevo.titulo);
+    if (!leerLineaTrim("Genero (Accion/Drama/Comedia/Terror): ", nuevo.genero, sizeof(nuevo.genero))) return;
+    if (!leerInt("Stock: ", &nuevo.stock)) return;
+    nuevo.estado = 'A';
+
+    res = validarTitulo(nuevo);
+    if (res != VALIDACION_OK){
+        printf("Validacion fallo (codigo %d). Alta cancelada.\n", res);
+        return;
+    }
+
+    indice_insertar(ctx->titulosCompletos, &nuevo, sizeof(Titulo), cmpTitulosPorId);
+
+    pos = indice_buscar(ctx->titulosCompletos, &nuevo, ctx->titulosCompletos->cantidad_elementos_actual, sizeof(Titulo), cmpTitulosPorId);
+
+    // Esto podemos ver si tenemos alguna otra forma de hacerlo para ver si es mas optimo, no se me ocurre otra cosa de momento //
+    exitos = (t_reg_indice_titulo *) ctx->exitoTitulos->vindice;
+    for (i = 0; i < ctx->exitoTitulos->cantidad_elementos_actual; i++){
+        if ((int) exitos[i].nro_reg >= pos) exitos[i].nro_reg++;
+    }
+
+    reg.idPelicula = nuevo.idPelicula;
+    reg.nro_reg = (unsigned) pos;
+    indice_insertar(ctx->exitoTitulos, &reg, sizeof(t_reg_indice_titulo), cmpRegIndiceTituloPorId);
+
+    printf("Titulo %d dado de alta.\n", nuevo.idPelicula);
 }
 
 void bajaTitulo(t_contexto_menu *ctx){

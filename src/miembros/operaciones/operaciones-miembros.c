@@ -7,7 +7,58 @@
 #include "../validaciones/validaciones-miembros.h"
 
 void altaMiembro(t_contexto_menu *ctx){
-    (void) ctx;
+    Miembro nuevo, clave;
+    t_reg_indice reg;
+    t_reg_indice *exitos;
+    int pos, res;
+    unsigned i;
+
+    memset(&nuevo, 0, sizeof(nuevo));
+
+    if (!leerLong("DNI: ", &nuevo.dni)){
+        printf("Entrada invalida.\n");
+        return;
+    }
+    memset(&clave, 0, sizeof(clave));
+    clave.dni = nuevo.dni;
+    if (indice_buscar(ctx->miembrosCompletos, &clave, ctx->miembrosCompletos->cantidad_elementos_actual, sizeof(Miembro), cmpMiembrosPorDni) != NO_EXISTE){
+        printf("Ya existe un miembro con ese DNI.\n");
+        return;
+    }
+
+    if (!leerLineaTrim("CUIL: ", nuevo.cuil, sizeof(nuevo.cuil))) return;
+    if (!leerLineaTrim("Apellido y Nombre: ", nuevo.apellidoNombre, sizeof(nuevo.apellidoNombre))) return;
+    normalizarApellidoYNombre(nuevo.apellidoNombre);
+    if (!leerFecha("Fecha nacimiento (DD/MM/AAAA): ", &nuevo.fechaNacimiento)) return;
+    if (!leerChar("Sexo (F/M/O): ", &nuevo.sexo)) return;
+    if (!leerFecha("Fecha afiliacion (DD/MM/AAAA): ", &nuevo.fechaAfiliacion)) return;
+    if (!leerLineaTrim("Categoria (MENOR/ADULTO): ", nuevo.categoria, sizeof(nuevo.categoria))) return;
+    if (!leerFecha("Fecha ultima cuota (DD/MM/AAAA): ", &nuevo.fechaUltimaCuota)) return;
+    nuevo.estado = 'A';
+    if (!leerLineaTrim("Plan (BASIC/PREMIUM/VIP/FAMILY): ", nuevo.plan, sizeof(nuevo.plan))) return;
+    if (!leerLineaTrim("Email tutor (vacio si no aplica): ", nuevo.emailTutor, sizeof(nuevo.emailTutor))) return;
+
+    res = validarMiembro(nuevo, ctx->fechaProceso);
+    if (res != VALIDACION_OK){
+        printf("Validacion fallo (codigo %d). Alta cancelada.\n", res);
+        return;
+    }
+
+    indice_insertar(ctx->miembrosCompletos, &nuevo, sizeof(Miembro), cmpMiembrosPorDni);
+
+    pos = indice_buscar(ctx->miembrosCompletos, &nuevo, ctx->miembrosCompletos->cantidad_elementos_actual, sizeof(Miembro), cmpMiembrosPorDni);
+
+    // Esto podemos ver si tenemos alguna otra forma de hacerlo para ver si es mas optimo, no se me ocurre otra cosa de momento //
+    exitos = (t_reg_indice *) ctx->exitoMiembros->vindice;
+    for (i = 0; i < ctx->exitoMiembros->cantidad_elementos_actual; i++){
+        if ((int) exitos[i].nro_reg >= pos) exitos[i].nro_reg++;
+    }
+
+    reg.dni = nuevo.dni;
+    reg.nro_reg = (unsigned) pos;
+    indice_insertar(ctx->exitoMiembros, &reg, sizeof(t_reg_indice), cmpRegIndicePorDni);
+
+    printf("Miembro %ld dado de alta.\n", nuevo.dni);
 }
 
 void bajaMiembro(t_contexto_menu *ctx){
