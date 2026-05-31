@@ -28,6 +28,38 @@ void agregarMatrizAuditMiembros(t_matriz_audit_miembros *m,int codigoError, long
     f->dnis[f->cantidad++] = dni;
 }
 
+void mostrarMatrizAuditMiembros(t_matriz_audit_miembros *m){
+    const char *nombresError[N_TIPOS_ERROR_MIEMBROS] = {
+        "ERROR_DNI",
+        "ERROR_SEXO",
+        "ERROR_ESTADO",
+        "ERROR_PLAN",
+        "ERROR_CUIL",
+        "ERROR_FECHA_NACIMIENTO",
+        "ERROR_FECHA_AFILIACION",
+        "ERROR_CATEGORIA",
+        "ERROR_EMAIL_TUTOR",
+        "ERROR_FECHA_ULTIMA_CUOTA",
+        "ERROR_APELLIDO_NOMBRE"
+    };
+    int i, j;
+    const t_fila_audit_miembros *f;
+
+    printf("\n=== MATRIZ DE AUDITORIA - MIEMBROS ===\n");
+    for (i = 0; i < N_TIPOS_ERROR_MIEMBROS; i++){
+        f = &m->filas[i];
+        printf("%-26s: ", nombresError[i]);
+        if (f->cantidad == 0){
+            printf("(sin errores)");
+        } else {
+            for (j = 0; j < f->cantidad; j++){
+                printf("%ld ", f->dnis[j]);
+            }
+        }
+        printf("  total: %u\n", f->cantidad);
+    }
+}
+
 void liberarMatrizAuditMiembros(t_matriz_audit_miembros *m){
     int i;
     for (i = 0; i < N_TIPOS_ERROR_MIEMBROS; i++){

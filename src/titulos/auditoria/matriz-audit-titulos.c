@@ -29,6 +29,32 @@ void agregarMatrizAuditTitulos(t_matriz_audit_titulos *m,int codigoError, int id
     f->ids[f->cantidad++] = idPelicula;
 }
 
+void mostrarMatrizAuditTitulos(t_matriz_audit_titulos *m){
+    const char *nombresError[N_TIPOS_ERROR_TITULOS] = {
+        "ERROR_ID_PELICULA",
+        "ERROR_TITULO",
+        "ERROR_GENERO",
+        "ERROR_STOCK",
+        "ERROR_ESTADO_TITULO"
+    };
+    int i, j;
+    const t_fila_audit_titulos *f;
+
+    printf("\n=== MATRIZ DE AUDITORIA - TITULOS ===\n");
+    for (i = 0; i < N_TIPOS_ERROR_TITULOS; i++){
+        f = &m->filas[i];
+        printf("%-26s: ", nombresError[i]);
+        if (f->cantidad == 0){
+            printf("(sin errores)");
+        } else {
+            for (j = 0; j < f->cantidad; j++){
+                printf("%d ", f->ids[j]);
+            }
+        }
+        printf("  total: %u\n", f->cantidad);
+    }
+}
+
 void liberarMatrizAuditTitulos(t_matriz_audit_titulos *m){
     int i;
     for (i = 0; i < N_TIPOS_ERROR_TITULOS; i++){

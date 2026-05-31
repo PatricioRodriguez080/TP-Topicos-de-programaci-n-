@@ -17,14 +17,15 @@ void imprimirOpciones(void){
     printf("  h. Alquiler de un titulo\n");
     printf("  i. Listado de miembros ordenados por DNI\n");
     printf("  j. Listado miembros por Plan\n");
-    printf("  k. Salir\n");
+    printf("  k. Mostrar matriz de auditoria de errores\n");
+    printf("  l. Salir\n");
     printf("Opcion: ");
 }
 
 char leerOpcion(void){
     char buffer[16];
     if (fgets(buffer, sizeof(buffer), stdin) == NULL){
-        return 'k';
+        return 'l';
     }
     return buffer[0];
 }
@@ -48,7 +49,11 @@ void mostrarMenu(t_contexto_menu *ctx){
             case 'h': alquilarTitulo(ctx);           break;
             case 'i': listarMiembrosPorDni(ctx);     break;
             case 'j': listarMiembrosPorPlan(ctx);    break;
-            case 'k': salir = true;                  break;
+            case 'k':
+                mostrarMatrizAuditMiembros(ctx->auditMiembros);
+                mostrarMatrizAuditTitulos(ctx->auditTitulos);
+                break;
+            case 'l': salir = true;                  break;
             default:  printf("Opcion invalida.\n"); break;
         }
     }

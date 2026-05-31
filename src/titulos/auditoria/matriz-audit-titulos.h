@@ -15,6 +15,7 @@ typedef struct {
 
 void crearMatrizAuditTitulos(t_matriz_audit_titulos *m);
 void agregarMatrizAuditTitulos(t_matriz_audit_titulos *m,int codigoError, int idPelicula);
+void mostrarMatrizAuditTitulos(t_matriz_audit_titulos *m);
 void liberarMatrizAuditTitulos(t_matriz_audit_titulos *m);
 int  guardarMatrizAuditTitulos(const char *path, const t_matriz_audit_titulos *m);
 int  cargarMatrizAuditTitulos (const char *path, t_matriz_audit_titulos *m);
