@@ -15,6 +15,7 @@ typedef struct {
 
 void crearMatrizAuditMiembros(t_matriz_audit_miembros *m);
 void agregarMatrizAuditMiembros(t_matriz_audit_miembros *m,int codigoError, long dni);
+void mostrarMatrizAuditMiembros(t_matriz_audit_miembros *m);
 void liberarMatrizAuditMiembros(t_matriz_audit_miembros *m);
 int  guardarMatrizAuditMiembros(const char *path, const t_matriz_audit_miembros *m);
 int  cargarMatrizAuditMiembros (const char *path, t_matriz_audit_miembros *m);
