@@ -24,7 +24,7 @@ int main(){
     t_matriz_audit_titulos  auditTitulos;
     t_alquileres alquileres;
     t_contexto_menu ctx;
-    
+
     char pathMiembros[128], pathTitulos[128], pathAlquileres[128];
     char pathAuditMiembros[128], pathAuditTitulos[128];
 
@@ -79,7 +79,7 @@ int main(){
     indice_liberar(&titulosCompletos);
     liberarAlquileres(&alquileres);
     liberarMatrizAuditMiembros(&auditMiembros);
-    liberarMatrizAuditTitulos (&auditTitulos);
+    liberarMatrizAuditTitulos (&auditTitulos);//pruebafabridom
 
     return 0;
 }
