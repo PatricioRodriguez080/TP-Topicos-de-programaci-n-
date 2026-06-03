@@ -48,7 +48,6 @@ void altaMiembro(t_contexto_menu *ctx){
 
     pos = indice_buscar(ctx->miembrosCompletos, &nuevo, ctx->miembrosCompletos->cantidad_elementos_actual, sizeof(Miembro), cmpMiembrosPorDni);
 
-    // Esto podemos ver si tenemos alguna otra forma de hacerlo para ver si es mas optimo, no se me ocurre otra cosa de momento //
     exitos = (t_reg_indice *) ctx->exitoMiembros->vindice;
     for (i = 0; i < ctx->exitoMiembros->cantidad_elementos_actual; i++){
         if ((int) exitos[i].nro_reg >= pos) exitos[i].nro_reg++;
