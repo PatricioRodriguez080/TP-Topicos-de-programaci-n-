@@ -7,6 +7,11 @@
 int leerLineaTrim(const char *prompt, char *buf, size_t n){
     if (prompt) printf("%s", prompt);
     if (fgets(buf, (int) n, stdin) == NULL) return 0;
+
+    if (strchr(buf, '\n') == NULL){
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
     buf[strcspn(buf, "\r\n")] = '\0';
     return 1;
 }
