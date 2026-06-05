@@ -115,6 +115,10 @@ int validarCUIL(void *dato){
         if (strcmp(d->miembro->cuil, esperado) == 0){
             return VALIDACION_OK;
         }
+        calcularCUIL(23, d->miembro->dni, esperado);
+        if (strcmp(d->miembro->cuil, esperado) == 0){
+            return VALIDACION_OK;
+        }
     }
 
     return ERROR_CUIL;
