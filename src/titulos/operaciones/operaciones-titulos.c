@@ -30,7 +30,6 @@ void altaTitulo(t_contexto_menu *ctx){
     }
 
     if (!leerLineaTrim("Titulo: ", nuevo.titulo, sizeof(nuevo.titulo))) return;
-    normalizarApellidoYNombre(nuevo.titulo);
     if (!leerLineaTrim("Genero (Accion/Drama/Comedia/Terror): ", nuevo.genero, sizeof(nuevo.genero))) return;
     if (!leerInt("Stock: ", &nuevo.stock)) return;
     nuevo.estado = 'A';
@@ -125,7 +124,6 @@ void modificarTitulo(t_contexto_menu *ctx){
         case 1:
             if (!leerLineaTrim("Nuevo titulo: ",
                                copia.titulo, sizeof(copia.titulo))) return;
-            normalizarApellidoYNombre(copia.titulo);
             break;
         case 2:
             if (!leerLineaTrim("Nuevo genero (Accion/Drama/Comedia/Terror): ",
