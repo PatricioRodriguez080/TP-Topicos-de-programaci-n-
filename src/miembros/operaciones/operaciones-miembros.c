@@ -27,7 +27,7 @@ void altaMiembro(t_contexto_menu *ctx){
     }
 
     if (!leerLineaTrim("CUIL (XX-DNI-X, con guiones): ", nuevo.cuil, sizeof(nuevo.cuil))) return;
-    if (!leerLineaTrim("Apellido y Nombre: ", nuevo.apellidoNombre, sizeof(nuevo.apellidoNombre))) return;
+    if (!leerLineaTrim("Apellido, Nombre: ", nuevo.apellidoNombre, sizeof(nuevo.apellidoNombre))) return;
     normalizarApellidoYNombre(nuevo.apellidoNombre);
     if (!leerFecha("Fecha nacimiento (DD/MM/AAAA): ", &nuevo.fechaNacimiento)) return;
     if (!leerChar("Sexo (F/M/O): ", &nuevo.sexo)) return;
