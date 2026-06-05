@@ -211,11 +211,6 @@ void listarMiembrosPorDni(t_contexto_menu *ctx){
     if (!mostrados) printf("(sin miembros activos)\n");
 }
 
-static void imprimirCelda(const t_reg_nombre *r, const char *plan){
-    if (strcmp(r->plan, plan) == 0) printf("%-10ld ", r->dni);
-    else                            printf("%-10d ", 0);
-}
-
 void listarMiembrosPorPlan(t_contexto_menu *ctx){
     Miembro *vec = (Miembro *) ctx->miembrosCompletos->vindice;
     unsigned n = ctx->miembrosCompletos->cantidad_elementos_actual;
@@ -223,6 +218,8 @@ void listarMiembrosPorPlan(t_contexto_menu *ctx){
     t_indice aux;
     t_reg_nombre tmp;
     t_reg_nombre *vecAux;
+    const char *planes[] = {"BASIC", "PREMIUM", "VIP", "FAMILY"};
+    unsigned p;
 
     indice_crear(&aux, n + 1, sizeof(t_reg_nombre));
     for (i = 0; i < n; i++){
@@ -235,17 +232,14 @@ void listarMiembrosPorPlan(t_contexto_menu *ctx){
         indice_insertar(&aux, &tmp, sizeof(t_reg_nombre), cmpRegPorApellidoNombre);
     }
 
-    printf("\n%-30s %-10s %-10s %-10s %-10s\n",
-           "Plan / Indice", "BASIC", "PREMIUM", "VIP", "FAMILY");
-
     vecAux = (t_reg_nombre *) aux.vindice;
-    for (i = 0; i < aux.cantidad_elementos_actual; i++){
-        printf("%-30s ", vecAux[i].apellidoNombre);
-        imprimirCelda(&vecAux[i], "BASIC");
-        imprimirCelda(&vecAux[i], "PREMIUM");
-        imprimirCelda(&vecAux[i], "VIP");
-        imprimirCelda(&vecAux[i], "FAMILY");
-        printf("\n");
+    for (p = 0; p < 4; p++){
+        printf("\n--- Plan %s ---\n", planes[p]);
+        for (i = 0; i < aux.cantidad_elementos_actual; i++){
+            if (strcmp(vecAux[i].plan, planes[p]) != 0) continue;
+            printf("%s, %ld, %s\n",
+                   vecAux[i].apellidoNombre, vecAux[i].dni, vecAux[i].plan);
+        }
     }
 
     indice_liberar(&aux);
