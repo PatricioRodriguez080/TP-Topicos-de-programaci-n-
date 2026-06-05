@@ -64,5 +64,5 @@ void csvATitulosBin(const char *csvPath, const char *binPath){
     }
     fclose(fpBin);
 
-    indice_vaciar(&indiceTmp);
+    indice_liberar(&indiceTmp);
 }

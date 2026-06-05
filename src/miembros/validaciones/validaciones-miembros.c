@@ -86,9 +86,6 @@ void calcularCUIL(int xyInicial, long dni, char salida[14]){
         z = 11 - resto;
     }
 
-    // sprintf(destino, "formato", valores) //
-    // Armo el string y lo guardo en salida //
-    // Borrar este comentario despues, por el momento es de ayuda :) //
     sprintf(salida, "%02d-%08ld-%d", xyFinal, dni, z);
 }
 
@@ -112,6 +109,10 @@ int validarCUIL(void *dato){
             return VALIDACION_OK;
         }
         calcularCUIL(27, d->miembro->dni, esperado);
+        if (strcmp(d->miembro->cuil, esperado) == 0){
+            return VALIDACION_OK;
+        }
+         calcularCUIL(23, d->miembro->dni, esperado);
         if (strcmp(d->miembro->cuil, esperado) == 0){
             return VALIDACION_OK;
         }
