@@ -44,7 +44,6 @@ void altaTitulo(t_contexto_menu *ctx){
 
     pos = indice_buscar(ctx->titulosCompletos, &nuevo, ctx->titulosCompletos->cantidad_elementos_actual, sizeof(Titulo), cmpTitulosPorId);
 
-    // Esto podemos ver si tenemos alguna otra forma de hacerlo para ver si es mas optimo, no se me ocurre otra cosa de momento //
     exitos = (t_reg_indice_titulo *) ctx->exitoTitulos->vindice;
     for (i = 0; i < ctx->exitoTitulos->cantidad_elementos_actual; i++){
         if ((int) exitos[i].nro_reg >= pos) exitos[i].nro_reg++;

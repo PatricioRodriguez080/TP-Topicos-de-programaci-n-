@@ -4,7 +4,7 @@
 
 int validarIdPelicula(void *dato){
     DatosValidacionTitulo *d = (DatosValidacionTitulo *)dato;
-    // Nos queda tener en cuenta que debe ser unico //
+
     if (d->titulo->idPelicula <= 0)
         return ERROR_ID_PELICULA;
     return VALIDACION_OK;
