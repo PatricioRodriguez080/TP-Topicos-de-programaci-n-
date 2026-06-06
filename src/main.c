@@ -43,7 +43,7 @@ int main(){
     armarNombreArchivo(pathAuditTitulos, sizeof(pathAuditTitulos), "Archivos/audit_titulos",  fechaProceso, "bin");
 
     if (existeArchivo(pathMiembros) && existeArchivo(pathTitulos)){
-        cargarMiembrosDesdeBin(pathMiembros, &miembrosCompletos, &indiceExitoMiembros);
+        cargarMiembrosDesdeBin(pathMiembros, &miembrosCompletos, &indiceExitoMiembros, fechaProceso);
         cargarTitulosDesdeBin (pathTitulos,  &titulosCompletos,  &indiceExitoTitulos);
         if (existeArchivo(pathAlquileres))
             cargarAlquileres(pathAlquileres, &alquileres);

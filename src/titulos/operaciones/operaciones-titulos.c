@@ -153,6 +153,7 @@ void alquilarTitulo(t_contexto_menu *ctx){
     Titulo  claveT;
     Miembro *vecM;
     Titulo  *vecT;
+    t_reg_indice regM;
 
     if (!leerLong("DNI del miembro: ", &dni)){
         printf("Entrada invalida.\n");
@@ -160,6 +161,16 @@ void alquilarTitulo(t_contexto_menu *ctx){
     }
     memset(&claveM, 0, sizeof(claveM));
     claveM.dni = dni;
+
+    regM.dni = dni;
+    regM.nro_reg = 0;
+    if (indice_buscar(ctx->exitoMiembros, &regM,
+                      ctx->exitoMiembros->cantidad_elementos_actual,
+                      sizeof(t_reg_indice), cmpRegIndicePorDni) == NO_EXISTE){
+        printf("DNI inexistente.\n");
+        return;
+    }
+
     posM = indice_buscar(ctx->miembrosCompletos, &claveM,
                          ctx->miembrosCompletos->cantidad_elementos_actual,
                          sizeof(Miembro), cmpMiembrosPorDni);

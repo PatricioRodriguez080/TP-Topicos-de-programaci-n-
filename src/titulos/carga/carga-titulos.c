@@ -24,7 +24,11 @@ void cargaTitulos(t_indice *indiceExito, t_indice *titulosCompletos,t_matriz_aud
         if (resultado == VALIDACION_OK){
             reg.idPelicula = titulos[i].idPelicula;
             reg.nro_reg = i;
-            indice_insertar(indiceExito, &reg, sizeof(t_reg_indice_titulo), cmpRegIndiceTituloPorId);
+            if (indice_buscar(indiceExito, &reg, indiceExito->cantidad_elementos_actual, sizeof(t_reg_indice_titulo), cmpRegIndiceTituloPorId) != NO_EXISTE){
+                agregarMatrizAuditTitulos(audit, ERROR_ID_PELICULA, titulos[i].idPelicula);
+            } else {
+                indice_insertar(indiceExito, &reg, sizeof(t_reg_indice_titulo), cmpRegIndiceTituloPorId);
+            }
         } else {
             agregarMatrizAuditTitulos(audit, resultado, titulos[i].idPelicula);
         }

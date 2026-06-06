@@ -7,47 +7,63 @@
 #include "../validaciones/validaciones-miembros.h"
 #include "../../utils/utils-fechas.h"
 
+static char *siguienteCampo(char **rest){
+    char *inicio = *rest;
+    char *sep;
+
+    if (inicio == NULL) return NULL;
+
+    sep = strchr(inicio, ';');
+    if (sep != NULL){
+        *sep = '\0';
+        *rest = sep + 1;
+    } else {
+        *rest = NULL;
+    }
+    return inicio;
+}
+
 static int parsearLineaCSV(char *linea, Miembro *m){
     char *token;
     char *rest = linea;
 
     linea[strcspn(linea, "\r\n")] = '\0';
 
-    token = strtok_r(rest, ";", &rest); if (!token) return ERROR;
+    token = siguienteCampo(&rest); if (!token) return ERROR;
     m->dni = atol(token);
 
-    token = strtok_r(NULL, ";", &rest); if (!token) return ERROR;
+    token = siguienteCampo(&rest); if (!token) return ERROR;
     strncpy(m->cuil, token, sizeof(m->cuil) - 1);
     m->cuil[sizeof(m->cuil) - 1] = '\0';
 
-    token = strtok_r(NULL, ";", &rest); if (!token) return ERROR;
+    token = siguienteCampo(&rest); if (!token) return ERROR;
     strncpy(m->apellidoNombre, token, sizeof(m->apellidoNombre) - 1);
     m->apellidoNombre[sizeof(m->apellidoNombre) - 1] = '\0';
 
-    token = strtok_r(NULL, ";", &rest); if (!token) return ERROR;
+    token = siguienteCampo(&rest); if (!token) return ERROR;
     if (!parsearFecha(token, &m->fechaNacimiento)) return ERROR;
 
-    token = strtok_r(NULL, ";", &rest); if (!token) return ERROR;
+    token = siguienteCampo(&rest); if (!token) return ERROR;
     m->sexo = token[0];
 
-    token = strtok_r(NULL, ";", &rest); if (!token) return ERROR;
+    token = siguienteCampo(&rest); if (!token) return ERROR;
     if (!parsearFecha(token, &m->fechaAfiliacion)) return ERROR;
 
-    token = strtok_r(NULL, ";", &rest); if (!token) return ERROR;
+    token = siguienteCampo(&rest); if (!token) return ERROR;
     strncpy(m->categoria, token, sizeof(m->categoria) - 1);
     m->categoria[sizeof(m->categoria) - 1] = '\0';
 
-    token = strtok_r(NULL, ";", &rest); if (!token) return ERROR;
+    token = siguienteCampo(&rest); if (!token) return ERROR;
     if (!parsearFecha(token, &m->fechaUltimaCuota)) return ERROR;
 
-    token = strtok_r(NULL, ";", &rest); if (!token) return ERROR;
+    token = siguienteCampo(&rest); if (!token) return ERROR;
     m->estado = token[0];
 
-    token = strtok_r(NULL, ";", &rest); if (!token) return ERROR;
+    token = siguienteCampo(&rest); if (!token) return ERROR;
     strncpy(m->plan, token, sizeof(m->plan) - 1);
     m->plan[sizeof(m->plan) - 1] = '\0';
 
-    token = strtok_r(NULL, ";", &rest);
+    token = siguienteCampo(&rest);
     if (token){
         strncpy(m->emailTutor, token, sizeof(m->emailTutor) - 1);
         m->emailTutor[sizeof(m->emailTutor) - 1] = '\0';
@@ -71,6 +87,12 @@ void csvAMiembrosBin(const char *csvPath, const char *binPath){
     if (!fpCsv) return;
 
     indice_crear(&indiceTmp, CANTIDAD_ELEMENTOS, sizeof(Miembro));
+
+    if (fgets(linea, sizeof(linea), fpCsv) == NULL){
+        fclose(fpCsv);
+        indice_liberar(&indiceTmp);
+        return;
+    }
 
     while (fgets(linea, sizeof(linea), fpCsv) != NULL){
         if (parsearLineaCSV(linea, &m) == OK){

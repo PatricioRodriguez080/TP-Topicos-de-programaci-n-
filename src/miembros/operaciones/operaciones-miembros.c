@@ -74,6 +74,13 @@ void bajaMiembro(t_contexto_menu *ctx){
     memset(&clave, 0, sizeof(clave));
     clave.dni = dni;
 
+    regClave.dni = dni;
+    regClave.nro_reg = 0;
+    if (indice_buscar(ctx->exitoMiembros, &regClave, ctx->exitoMiembros->cantidad_elementos_actual, sizeof(t_reg_indice), cmpRegIndicePorDni) == NO_EXISTE){
+        printf("DNI inexistente.\n");
+        return;
+    }
+
     pos = indice_buscar(ctx->miembrosCompletos, &clave, ctx->miembrosCompletos->cantidad_elementos_actual, sizeof(Miembro), cmpMiembrosPorDni);
     if (pos == NO_EXISTE){
         printf("DNI inexistente.\n");
@@ -81,14 +88,8 @@ void bajaMiembro(t_contexto_menu *ctx){
     }
 
     vec = (Miembro *) ctx->miembrosCompletos->vindice;
-    if (vec[pos].estado == 'B'){
-        printf("El miembro ya estaba dado de baja.\n");
-        return;
-    }
     vec[pos].estado = 'B';
 
-    regClave.dni = dni;
-    regClave.nro_reg = 0;
     indice_eliminar(ctx->exitoMiembros, &regClave, sizeof(t_reg_indice), cmpRegIndicePorDni);
 
     printf("Miembro %ld dado de baja.\n", dni);
@@ -98,6 +99,7 @@ void modificarMiembro(t_contexto_menu *ctx){
     long dni;
     Miembro clave, copia;
     Miembro *vec;
+    t_reg_indice regClave;
     int pos, opcion, res, xy;
 
     if (!leerLong("DNI a modificar: ", &dni)){
@@ -106,6 +108,14 @@ void modificarMiembro(t_contexto_menu *ctx){
     }
     memset(&clave, 0, sizeof(clave));
     clave.dni = dni;
+
+    regClave.dni = dni;
+    regClave.nro_reg = 0;
+    if (indice_buscar(ctx->exitoMiembros, &regClave, ctx->exitoMiembros->cantidad_elementos_actual, sizeof(t_reg_indice), cmpRegIndicePorDni) == NO_EXISTE){
+        printf("DNI inexistente.\n");
+        return;
+    }
+
     pos = indice_buscar(ctx->miembrosCompletos, &clave, ctx->miembrosCompletos->cantidad_elementos_actual, sizeof(Miembro), cmpMiembrosPorDni);
     if (pos == NO_EXISTE){
         printf("DNI inexistente.\n");
@@ -167,6 +177,7 @@ void mostrarInfoMiembro(t_contexto_menu *ctx){
     long dni;
     Miembro clave;
     Miembro *m;
+    t_reg_indice regClave;
     int pos;
 
     if (!leerLong("DNI a consultar: ", &dni)){
@@ -175,6 +186,14 @@ void mostrarInfoMiembro(t_contexto_menu *ctx){
     }
     memset(&clave, 0, sizeof(clave));
     clave.dni = dni;
+
+    regClave.dni = dni;
+    regClave.nro_reg = 0;
+    if (indice_buscar(ctx->exitoMiembros, &regClave, ctx->exitoMiembros->cantidad_elementos_actual, sizeof(t_reg_indice), cmpRegIndicePorDni) == NO_EXISTE){
+        printf("DNI inexistente.\n");
+        return;
+    }
+
     pos = indice_buscar(ctx->miembrosCompletos, &clave, ctx->miembrosCompletos->cantidad_elementos_actual, sizeof(Miembro), cmpMiembrosPorDni);
     if (pos == NO_EXISTE){
         printf("DNI inexistente.\n");
@@ -199,13 +218,17 @@ void mostrarInfoMiembro(t_contexto_menu *ctx){
 
 void listarMiembrosPorDni(t_contexto_menu *ctx){
     Miembro *vec = (Miembro *) ctx->miembrosCompletos->vindice;
-    unsigned i, n = ctx->miembrosCompletos->cantidad_elementos_actual;
-    int mostrados = 0;
+    t_reg_indice *idx = (t_reg_indice *) ctx->exitoMiembros->vindice;
+    unsigned i, n = ctx->exitoMiembros->cantidad_elementos_actual;
+    Miembro clave;
+    int pos, mostrados = 0;
 
     printf("\n%-10s %-30s %-10s %-3s\n", "DNI", "APELLIDO Y NOMBRE", "PLAN", "EST");
     for (i = 0; i < n; i++){
-        if (vec[i].estado == 'B') continue;
-        printf("%-10ld %-30s %-10s %c\n", vec[i].dni, vec[i].apellidoNombre, vec[i].plan, vec[i].estado);
+        clave.dni = idx[i].dni;
+        pos = indice_buscar(ctx->miembrosCompletos, &clave, ctx->miembrosCompletos->cantidad_elementos_actual, sizeof(Miembro), cmpMiembrosPorDni);
+        if (pos == NO_EXISTE) continue;
+        printf("%-10ld %-30s %-10s %c\n", vec[pos].dni, vec[pos].apellidoNombre, vec[pos].plan, vec[pos].estado);
         mostrados++;
     }
     if (!mostrados) printf("(sin miembros activos)\n");
@@ -213,21 +236,26 @@ void listarMiembrosPorDni(t_contexto_menu *ctx){
 
 void listarMiembrosPorPlan(t_contexto_menu *ctx){
     Miembro *vec = (Miembro *) ctx->miembrosCompletos->vindice;
-    unsigned n = ctx->miembrosCompletos->cantidad_elementos_actual;
+    t_reg_indice *idx = (t_reg_indice *) ctx->exitoMiembros->vindice;
+    unsigned n = ctx->exitoMiembros->cantidad_elementos_actual;
     unsigned i;
     t_indice aux;
     t_reg_nombre tmp;
     t_reg_nombre *vecAux;
     const char *planes[] = {"BASIC", "PREMIUM", "VIP", "FAMILY"};
     unsigned p;
+    Miembro clave;
+    int pos;
 
     indice_crear(&aux, n + 1, sizeof(t_reg_nombre));
     for (i = 0; i < n; i++){
-        if (vec[i].estado == 'B') continue;
-        strncpy(tmp.apellidoNombre, vec[i].apellidoNombre, sizeof(tmp.apellidoNombre));
+        clave.dni = idx[i].dni;
+        pos = indice_buscar(ctx->miembrosCompletos, &clave, ctx->miembrosCompletos->cantidad_elementos_actual, sizeof(Miembro), cmpMiembrosPorDni);
+        if (pos == NO_EXISTE) continue;
+        strncpy(tmp.apellidoNombre, vec[pos].apellidoNombre, sizeof(tmp.apellidoNombre));
         tmp.apellidoNombre[sizeof(tmp.apellidoNombre)-1] = '\0';
-        tmp.dni = vec[i].dni;
-        strncpy(tmp.plan, vec[i].plan, sizeof(tmp.plan));
+        tmp.dni = vec[pos].dni;
+        strncpy(tmp.plan, vec[pos].plan, sizeof(tmp.plan));
         tmp.plan[sizeof(tmp.plan)-1] = '\0';
         indice_insertar(&aux, &tmp, sizeof(t_reg_nombre), cmpRegPorApellidoNombre);
     }

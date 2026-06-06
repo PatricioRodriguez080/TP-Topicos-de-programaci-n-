@@ -20,6 +20,8 @@ int validarGenero(void *dato);
 int validarStock(void *dato);
 int validarEstadoTitulo(void *dato);
 
+char *normalizarTitulo(char *cad);
+
 int validarTitulo(Titulo titulo);
 
 #endif

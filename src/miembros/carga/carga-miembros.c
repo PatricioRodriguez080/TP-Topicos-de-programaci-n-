@@ -24,7 +24,11 @@ void cargaMiembros(t_indice *indiceExito, t_indice *miembrosCompletos, t_matriz_
         if (resultado == VALIDACION_OK){
             reg.dni = miembros[i].dni;
             reg.nro_reg = i;
-            indice_insertar(indiceExito, &reg, sizeof(t_reg_indice), cmpRegIndicePorDni);
+            if (indice_buscar(indiceExito, &reg, indiceExito->cantidad_elementos_actual, sizeof(t_reg_indice), cmpRegIndicePorDni) != NO_EXISTE){
+                agregarMatrizAuditMiembros(audit, ERROR_DNI, miembros[i].dni);
+            } else {
+                indice_insertar(indiceExito, &reg, sizeof(t_reg_indice), cmpRegIndicePorDni);
+            }
         } else {
             agregarMatrizAuditMiembros(audit, resultado, miembros[i].dni);
         }

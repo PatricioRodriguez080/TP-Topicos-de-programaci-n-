@@ -1,6 +1,6 @@
 #include <string.h>
+#include <ctype.h>
 #include "validaciones-titulos.h"
-#include "../../miembros/validaciones/validaciones-miembros.h"
 
 int validarIdPelicula(void *dato){
     DatosValidacionTitulo *d = (DatosValidacionTitulo *)dato;
@@ -10,12 +10,41 @@ int validarIdPelicula(void *dato){
     return VALIDACION_OK;
 }
 
+char *normalizarTitulo(char *cad){
+    char *lect = cad, *esc = cad;
+    int primeraLetraPalabra;
+    int posicionPalabra = 0;
+
+    while (*lect){
+        while (*lect && isspace((unsigned char)*lect))
+            lect++;
+
+        if (*lect){
+            posicionPalabra++;
+            if (posicionPalabra > 1){
+                *esc = ' ';
+                esc++;
+            }
+            primeraLetraPalabra = 1;
+            while (*lect && !isspace((unsigned char)*lect)){
+                *esc = primeraLetraPalabra ? toupper((unsigned char)*lect) : tolower((unsigned char)*lect);
+                primeraLetraPalabra = 0;
+                esc++;
+                lect++;
+            }
+        }
+    }
+
+    *esc = '\0';
+    return cad;
+}
+
 int validarNombreTitulo(void *dato){
     DatosValidacionTitulo *d = (DatosValidacionTitulo *)dato;
     char esperado[60];
 
     strcpy(esperado, d->titulo->titulo);
-    normalizarApellidoYNombre(esperado);
+    normalizarTitulo(esperado);
     if (strcmp(d->titulo->titulo, esperado) != 0)
         return ERROR_TITULO;
     return VALIDACION_OK;

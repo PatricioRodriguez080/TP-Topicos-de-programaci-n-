@@ -2,8 +2,9 @@
 #include "persistencia-miembros.h"
 #include "../comparadores/comparadores.h"
 #include "../miembro.h"
+#include "../validaciones/validaciones-miembros.h"
 
-int cargarMiembrosDesdeBin(const char *path, t_indice *miembrosCompletos, t_indice *exitoMiembros){
+int cargarMiembrosDesdeBin(const char *path, t_indice *miembrosCompletos, t_indice *exitoMiembros, t_fecha fechaProceso){
     FILE *fp = fopen(path, "rb");
     Miembro m;
     t_reg_indice reg;
@@ -11,10 +12,11 @@ int cargarMiembrosDesdeBin(const char *path, t_indice *miembrosCompletos, t_indi
     if (!fp) return 0;
     while (fread(&m, sizeof(Miembro), 1, fp) == 1){
         indice_insertar(miembrosCompletos, &m, sizeof(Miembro), cmpMiembrosPorDni);
-        if (m.estado != 'B'){
+        if (m.estado != 'B' && validarMiembro(m, fechaProceso) == VALIDACION_OK){
             reg.dni = m.dni;
             reg.nro_reg = miembrosCompletos->cantidad_elementos_actual - 1;
-            indice_insertar(exitoMiembros, &reg, sizeof(t_reg_indice), cmpRegIndicePorDni);
+            if (indice_buscar(exitoMiembros, &reg, exitoMiembros->cantidad_elementos_actual, sizeof(t_reg_indice), cmpRegIndicePorDni) == NO_EXISTE)
+                indice_insertar(exitoMiembros, &reg, sizeof(t_reg_indice), cmpRegIndicePorDni);
         }
     }
     fclose(fp);

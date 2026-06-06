@@ -6,24 +6,40 @@
 #include "../../indice/indice.h"
 #include "../validaciones/validaciones-titulos.h"
 
+static char *siguienteCampo(char **rest){
+    char *inicio = *rest;
+    char *sep;
+
+    if (inicio == NULL) return NULL;
+
+    sep = strchr(inicio, ';');
+    if (sep != NULL){
+        *sep = '\0';
+        *rest = sep + 1;
+    } else {
+        *rest = NULL;
+    }
+    return inicio;
+}
+
 static int parsearLineaCSV(char *linea, Titulo *t){
     char *token;
     char *rest = linea;
 
     linea[strcspn(linea, "\r\n")] = '\0';
 
-    token = strtok_r(rest, ";", &rest); if (!token) return ERROR;
+    token = siguienteCampo(&rest); if (!token) return ERROR;
     t->idPelicula = atoi(token);
 
-    token = strtok_r(NULL, ";", &rest); if (!token) return ERROR;
+    token = siguienteCampo(&rest); if (!token) return ERROR;
     strncpy(t->titulo, token, sizeof(t->titulo) - 1);
     t->titulo[sizeof(t->titulo) - 1] = '\0';
 
-    token = strtok_r(NULL, ";", &rest); if (!token) return ERROR;
+    token = siguienteCampo(&rest); if (!token) return ERROR;
     strncpy(t->genero, token, sizeof(t->genero) - 1);
     t->genero[sizeof(t->genero) - 1] = '\0';
 
-    token = strtok_r(NULL, ";", &rest); if (!token) return ERROR;
+    token = siguienteCampo(&rest); if (!token) return ERROR;
     t->stock = atoi(token);
 
     t->estado = 'A';
@@ -44,6 +60,12 @@ void csvATitulosBin(const char *csvPath, const char *binPath){
     if (!fpCsv) return;
 
     indice_crear(&indiceTmp, CANTIDAD_ELEMENTOS, sizeof(Titulo));
+
+    if (fgets(linea, sizeof(linea), fpCsv) == NULL){
+        fclose(fpCsv);
+        indice_liberar(&indiceTmp);
+        return;
+    }
 
     while (fgets(linea, sizeof(linea), fpCsv) != NULL){
         if (parsearLineaCSV(linea, &t) == OK){
