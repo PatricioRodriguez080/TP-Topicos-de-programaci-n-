@@ -53,7 +53,7 @@ int validarNombreTitulo(void *dato){
 int validarGenero(void *dato){
     DatosValidacionTitulo *d = (DatosValidacionTitulo *)dato;
 
-    if (strcmp(d->titulo->genero, "Accion")  != 0 &&
+    if (strcmp(d->titulo->genero, "Acción")  != 0 &&
         strcmp(d->titulo->genero, "Drama")   != 0 &&
         strcmp(d->titulo->genero, "Comedia") != 0 &&
         strcmp(d->titulo->genero, "Terror")  != 0)
